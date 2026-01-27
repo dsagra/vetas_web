@@ -8,7 +8,7 @@
 
 La sección se muestra **al final de la home** (`index.cgi`), justo antes del footer, en los 3 idiomas:
 
-- **Español**: `index.cgi?i=es` 
+- **Español**: `index.cgi?i=es`
 - **English**: `index.cgi?i=en`
 - **Português**: `index.cgi?i=br`
 
@@ -17,14 +17,17 @@ La sección se muestra **al final de la home** (`index.cgi`), justo antes del fo
 ## 🎨 Diseño Implementado
 
 ### ✅ CSS Embebido
+
 El CSS está **dentro de cada archivo HTML**, por lo que no depende de archivos externos. Esto asegura que el diseño se vea correctamente sin problemas de rutas.
 
 ### ✅ Diseño Responsive
+
 - **Desktop**: Dos columnas (info + formulario)
 - **Tablet**: Layout adaptado
 - **Mobile**: Una columna apilada
 
 ### ✅ Estilos Aplicados
+
 - Degradados sutiles en fondo
 - Formulario con sombras y esquinas redondeadas
 - Inputs con efecto focus verde VETAS
@@ -36,7 +39,9 @@ El CSS está **dentro de cada archivo HTML**, por lo que no depende de archivos 
 ## 📂 Archivos Actualizados
 
 ### 1. **index.cgi** (MODIFICADO)
+
 Integra automáticamente el componente según el idioma:
+
 ```perl
 if ($idioma eq "es") {
     open SUSCRIPCION, "components/seccion-suscripcion.html"...
@@ -50,33 +55,37 @@ elsif ($idioma eq "br") {
 ```
 
 ### 2. **components/seccion-suscripcion.html** (ACTUALIZADO)
+
 ✅ CSS embebido completo  
 ✅ Formulario con action correcto: `suscripcion.cgi`  
 ✅ Campo hidden con idioma: `es`  
 ✅ reCAPTCHA integrado  
-✅ Script de Google reCAPTCHA incluido  
+✅ Script de Google reCAPTCHA incluido
 
 ### 3. **components/seccion-suscripcion-en.html** (ACTUALIZADO)
+
 ✅ CSS embebido completo  
 ✅ Formulario con action correcto: `suscripcion.cgi`  
 ✅ Campo hidden con idioma: `en`  
 ✅ reCAPTCHA integrado  
-✅ Textos en inglés  
+✅ Textos en inglés
 
 ### 4. **components/seccion-suscripcion-br.html** (ACTUALIZADO)
+
 ✅ CSS embebido completo  
 ✅ Formulario con action correcto: `suscripcion.cgi`  
 ✅ Campo hidden con idioma: `br`  
 ✅ reCAPTCHA integrado  
-✅ Textos en portugués  
+✅ Textos en portugués
 
 ### 5. **suscripcion.cgi** (NUEVO)
+
 ✅ Procesador del formulario  
 ✅ Validación de email  
 ✅ Validación de reCAPTCHA  
 ✅ Almacenamiento en base de datos  
 ✅ Páginas de éxito/error  
-✅ Soporte multiidioma  
+✅ Soporte multiidioma
 
 ---
 
@@ -85,6 +94,7 @@ elsif ($idioma eq "br") {
 ### 1. Google reCAPTCHA
 
 **Obtener claves:**
+
 ```
 🔗 https://www.google.com/recaptcha/admin/create
 ```
@@ -92,6 +102,7 @@ elsif ($idioma eq "br") {
 **Configurar en 3 archivos:**
 
 #### A. `components/seccion-suscripcion.html`
+
 ```html
 <!-- Línea ~247 -->
 <div class="g-recaptcha" data-sitekey="TU_SITE_KEY_AQUI"></div>
@@ -99,6 +110,7 @@ elsif ($idioma eq "br") {
 ```
 
 #### B. `components/seccion-suscripcion-en.html`
+
 ```html
 <!-- Línea ~247 -->
 <div class="g-recaptcha" data-sitekey="TU_SITE_KEY_AQUI"></div>
@@ -106,6 +118,7 @@ elsif ($idioma eq "br") {
 ```
 
 #### C. `components/seccion-suscripcion-br.html`
+
 ```html
 <!-- Línea ~247 -->
 <div class="g-recaptcha" data-sitekey="TU_SITE_KEY_AQUI"></div>
@@ -113,6 +126,7 @@ elsif ($idioma eq "br") {
 ```
 
 #### D. `suscripcion.cgi`
+
 ```perl
 <!-- Línea ~10 -->
 my $RECAPTCHA_SECRET_KEY = 'TU_SECRET_KEY_AQUI';
@@ -120,6 +134,7 @@ my $RECAPTCHA_SECRET_KEY = 'TU_SECRET_KEY_AQUI';
 ```
 
 **Script automático:**
+
 ```bash
 ./configurar-suscripcion.sh [SITE_KEY] [SECRET_KEY]
 ```
@@ -127,11 +142,13 @@ my $RECAPTCHA_SECRET_KEY = 'TU_SECRET_KEY_AQUI';
 ### 2. Base de Datos
 
 **Crear tabla si no existe:**
+
 ```bash
 mysql -u vetascom_web -p vetascom_web < sql/create_suscriptores_table.sql
 ```
 
 **Verificar tabla:**
+
 ```sql
 SHOW TABLES LIKE 'SUSCRIPTORES';
 DESCRIBE SUSCRIPTORES;
@@ -140,6 +157,7 @@ DESCRIBE SUSCRIPTORES;
 ### 3. Credenciales de BD
 
 En `suscripcion.cgi` (línea ~73), verificar:
+
 ```perl
 sub conectar_db {
     my $database = "vetascom_web";
@@ -155,11 +173,12 @@ sub conectar_db {
 ## 🧪 Cómo Probar
 
 ### 1. Verificar que se muestra
+
 ```bash
 # Español
 https://www.vetas.com/index.cgi?i=es
 
-# English  
+# English
 https://www.vetas.com/index.cgi?i=en
 
 # Português
@@ -167,7 +186,9 @@ https://www.vetas.com/index.cgi?i=br
 ```
 
 ### 2. Scroll hasta el final
+
 Deberías ver:
+
 - ✅ Fondo degradado gris claro
 - ✅ Título "Recibí VETAS en tu mail"
 - ✅ Lista de beneficios con checkmarks verdes
@@ -177,11 +198,13 @@ Deberías ver:
 - ✅ reCAPTCHA (checkbox "No soy un robot")
 
 ### 3. Probar responsive
+
 - Desktop (>1024px): 2 columnas
 - Tablet (768-1024px): 2 columnas ajustadas
 - Mobile (<768px): 1 columna apilada
 
 ### 4. Probar formulario (después de configurar reCAPTCHA)
+
 1. Ingresar email válido
 2. Ingresar nombre (opcional)
 3. Completar reCAPTCHA
@@ -193,20 +216,23 @@ Deberías ver:
 ## 📊 Consultas Útiles
 
 ### Ver suscriptores
+
 ```sql
 SELECT * FROM SUSCRIPTORES ORDER BY FECHA DESC LIMIT 10;
 ```
 
 ### Contar suscriptores activos
+
 ```sql
 SELECT COUNT(*) FROM SUSCRIPTORES WHERE ACTIVO = 1;
 ```
 
 ### Suscriptores por idioma
+
 ```sql
-SELECT IDIOMA, COUNT(*) as total 
-FROM SUSCRIPTORES 
-WHERE ACTIVO = 1 
+SELECT IDIOMA, COUNT(*) as total
+FROM SUSCRIPTORES
+WHERE ACTIVO = 1
 GROUP BY IDIOMA;
 ```
 
@@ -261,6 +287,7 @@ Antes de lanzar a producción:
 ## 🚀 Próximos Pasos
 
 ### Inmediatos (requeridos)
+
 1. ✅ **Configurar reCAPTCHA**
    - Obtener claves en Google
    - Actualizar 4 archivos con las claves
@@ -275,6 +302,7 @@ Antes de lanzar a producción:
    - Verificar que se guarda en la BD
 
 ### Mejoras futuras (opcionales)
+
 - Email de bienvenida automático
 - Confirmación double opt-in
 - Panel de administración
@@ -316,19 +344,21 @@ Una vez configurado, tendrás:
 ✅ Formulario funcional con anti-spam  
 ✅ Captación de suscriptores en 3 idiomas  
 ✅ Base de datos para análisis y newsletters  
-✅ Sistema escalable y mantenible  
+✅ Sistema escalable y mantenible
 
 ---
 
 ## 📞 Soporte
 
 **Archivos de documentación:**
+
 - `INTEGRACION_COMPLETA.md` - Resumen visual
 - `INTEGRACION_SUSCRIPCION.md` - Guía técnica detallada
 - `QUICK_START.md` - Inicio rápido
 - `configurar-suscripcion.sh` - Script de configuración
 
 **Archivos creados:**
+
 - `components/seccion-suscripcion.html` (ES)
 - `components/seccion-suscripcion-en.html` (EN)
 - `components/seccion-suscripcion-br.html` (BR)
@@ -344,4 +374,4 @@ Solo falta **configurar reCAPTCHA** y está lista para captar suscriptores! 🚀
 
 ---
 
-*Última actualización: 24 de enero de 2026*
+_Última actualización: 24 de enero de 2026_

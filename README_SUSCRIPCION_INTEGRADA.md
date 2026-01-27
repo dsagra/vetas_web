@@ -59,6 +59,7 @@ DESCRIBE SUSCRIPTORES;
 ```
 
 Deberías ver:
+
 ```
 +------------+--------------+------+-----+-------------------+
 | Field      | Type         | Null | Key | Default           |
@@ -79,16 +80,19 @@ Deberías ver:
 ### Paso 3: Acceder a la home y probar
 
 **Español:**
+
 ```
 http://localhost/index.cgi?i=es
 ```
 
 **English:**
+
 ```
 http://localhost/index.cgi?i=en
 ```
 
 **Português:**
+
 ```
 http://localhost/index.cgi?i=br
 ```
@@ -96,6 +100,7 @@ http://localhost/index.cgi?i=br
 ### Paso 4: Hacer scroll hasta el final
 
 Deberías ver:
+
 - ✅ Fondo degradado suave (gris claro)
 - ✅ Título grande: "Recibí VETAS en tu mail"
 - ✅ Bajada descriptiva
@@ -120,6 +125,7 @@ SELECT * FROM SUSCRIPTORES ORDER BY FECHA DESC LIMIT 1;
 ```
 
 Deberías ver tu registro recién creado:
+
 ```
 +----+-------------------+--------------+--------+--------+---------------------+
 | ID | EMAIL             | NOMBRE       | IDIOMA | ACTIVO | FECHA               |
@@ -133,6 +139,7 @@ Deberías ver tu registro recién creado:
 ## ✅ Configuración Actual
 
 ### ✅ Archivos Integrados
+
 - [x] `index.cgi` - **MODIFICADO CON INTEGRACIÓN**
 - [x] `components/seccion-suscripcion.html` - Español
 - [x] `components/seccion-suscripcion-en.html` - English
@@ -141,12 +148,15 @@ Deberías ver tu registro recién creado:
 - [x] `sql/create_suscriptores_table.sql` - Schema de BD
 
 ### ✅ CSS Embebido
+
 Todo el CSS está dentro de cada componente HTML, por lo que no depende de archivos externos.
 
 ### ✅ reCAPTCHA
+
 **Temporalmente DESHABILITADO** para facilitar el testing. Los registros se guardan sin problema.
 
 ### ✅ Base de Datos
+
 - Database: `vetas_VETAS2`
 - User: `vetas_user`
 - Password: `ghewrp44`
@@ -157,6 +167,7 @@ Todo el CSS está dentro de cada componente HTML, por lo que no depende de archi
 ## 🎨 Vista Responsive
 
 ### Desktop (>1024px)
+
 ```
 ┌──────────────────────────────────────────────────┐
 │  RECIBÍ VETAS EN TU MAIL                         │
@@ -171,6 +182,7 @@ Todo el CSS está dentro de cada componente HTML, por lo que no depende de archi
 ```
 
 ### Mobile (<768px)
+
 ```
 ┌────────────────────┐
 │ RECIBÍ VETAS       │
@@ -196,55 +208,61 @@ Todo el CSS está dentro de cada componente HTML, por lo que no depende de archi
 ## 📊 Consultas Útiles
 
 ### Ver todos los suscriptores
+
 ```sql
-SELECT ID, EMAIL, NOMBRE, IDIOMA, FECHA, ACTIVO 
-FROM SUSCRIPTORES 
+SELECT ID, EMAIL, NOMBRE, IDIOMA, FECHA, ACTIVO
+FROM SUSCRIPTORES
 ORDER BY FECHA DESC;
 ```
 
 ### Contar suscriptores activos
+
 ```sql
-SELECT COUNT(*) as total 
-FROM SUSCRIPTORES 
+SELECT COUNT(*) as total
+FROM SUSCRIPTORES
 WHERE ACTIVO = 1;
 ```
 
 ### Suscriptores de hoy
+
 ```sql
-SELECT * FROM SUSCRIPTORES 
+SELECT * FROM SUSCRIPTORES
 WHERE DATE(FECHA) = CURDATE()
 ORDER BY FECHA DESC;
 ```
 
 ### Suscriptores por idioma
+
 ```sql
-SELECT 
+SELECT
     IDIOMA,
     COUNT(*) as total,
     COUNT(*) * 100.0 / (SELECT COUNT(*) FROM SUSCRIPTORES WHERE ACTIVO = 1) as porcentaje
-FROM SUSCRIPTORES 
-WHERE ACTIVO = 1 
+FROM SUSCRIPTORES
+WHERE ACTIVO = 1
 GROUP BY IDIOMA;
 ```
 
 ### Últimos 10 suscriptores
+
 ```sql
-SELECT 
+SELECT
     EMAIL,
     NOMBRE,
     IDIOMA,
     DATE_FORMAT(FECHA, '%d/%m/%Y %H:%i') as fecha_formato
-FROM SUSCRIPTORES 
+FROM SUSCRIPTORES
 WHERE ACTIVO = 1
-ORDER BY FECHA DESC 
+ORDER BY FECHA DESC
 LIMIT 10;
 ```
 
 ### Exportar emails para newsletter
+
 ```sql
-SELECT EMAIL, NOMBRE, IDIOMA 
-FROM SUSCRIPTORES 
-WHERE ACTIVO = 1 
+SELECT EMAIL, NOMBRE, IDIOMA
+FROM SUSCRIPTORES
+WHERE ACTIVO = 1
 ORDER BY IDIOMA, EMAIL;
 ```
 
@@ -253,31 +271,35 @@ ORDER BY IDIOMA, EMAIL;
 ## 🔧 Mantenimiento
 
 ### Desactivar un suscriptor (dar de baja)
+
 ```sql
-UPDATE SUSCRIPTORES 
+UPDATE SUSCRIPTORES
 SET ACTIVO = 0, UPDATED_AT = NOW()
 WHERE EMAIL = 'usuario@example.com';
 ```
 
 ### Reactivar un suscriptor
+
 ```sql
-UPDATE SUSCRIPTORES 
+UPDATE SUSCRIPTORES
 SET ACTIVO = 1, UPDATED_AT = NOW()
 WHERE EMAIL = 'usuario@example.com';
 ```
 
 ### Eliminar suscriptores duplicados (mantener el más reciente)
+
 ```sql
 DELETE s1 FROM SUSCRIPTORES s1
-INNER JOIN SUSCRIPTORES s2 
-WHERE s1.ID < s2.ID 
+INNER JOIN SUSCRIPTORES s2
+WHERE s1.ID < s2.ID
 AND s1.EMAIL = s2.EMAIL;
 ```
 
 ### Limpiar suscriptores inactivos antiguos (>2 años)
+
 ```sql
-DELETE FROM SUSCRIPTORES 
-WHERE ACTIVO = 0 
+DELETE FROM SUSCRIPTORES
+WHERE ACTIVO = 0
 AND UPDATED_AT < DATE_SUB(NOW(), INTERVAL 2 YEAR);
 ```
 
@@ -286,12 +308,15 @@ AND UPDATED_AT < DATE_SUB(NOW(), INTERVAL 2 YEAR);
 ## 🐛 Troubleshooting
 
 ### No veo la sección en la home
+
 1. Verifica que los archivos existen:
+
    ```bash
    ls -la components/seccion-suscripcion*.html
    ```
 
 2. Verifica que `index.cgi` tiene la integración:
+
    ```bash
    grep -n "seccion-suscripcion" index.cgi
    ```
@@ -302,19 +327,24 @@ AND UPDATED_AT < DATE_SUB(NOW(), INTERVAL 2 YEAR);
    ```
 
 ### No se ve el CSS (diseño sin estilos)
+
 El CSS está embebido en cada componente HTML. Verifica:
+
 1. Que los archivos HTML tienen el tag `<style>` al principio
 2. Que no hay errores de sintaxis en el HTML
 3. Inspecciona el código fuente en el navegador (View Source)
 
 ### El formulario no envía
+
 1. Verifica permisos de `suscripcion.cgi`:
+
    ```bash
    chmod 755 suscripcion.cgi
    ls -la suscripcion.cgi
    ```
 
 2. Prueba acceder directamente:
+
    ```
    http://localhost/suscripcion.cgi
    ```
@@ -325,7 +355,9 @@ El CSS está embebido en cada componente HTML. Verifica:
    ```
 
 ### Error al guardar en BD
+
 1. Verifica la tabla existe:
+
    ```sql
    SHOW TABLES LIKE 'SUSCRIPTORES';
    ```
@@ -338,6 +370,7 @@ El CSS está embebido en cada componente HTML. Verifica:
    ```
 
 ### Módulos Perl faltantes
+
 ```bash
 # Si hay error de módulos
 cpan install DBI
@@ -351,46 +384,48 @@ cpan install JSON
 ## 📈 Estadísticas y Análisis
 
 ### Dashboard básico de suscriptores
+
 ```sql
-SELECT 
+SELECT
     'Total Suscriptores' as Métrica,
     COUNT(*) as Valor
 FROM SUSCRIPTORES
 UNION ALL
-SELECT 
+SELECT
     'Activos',
-    COUNT(*) 
-FROM SUSCRIPTORES 
+    COUNT(*)
+FROM SUSCRIPTORES
 WHERE ACTIVO = 1
 UNION ALL
-SELECT 
+SELECT
     'Inactivos',
-    COUNT(*) 
-FROM SUSCRIPTORES 
+    COUNT(*)
+FROM SUSCRIPTORES
 WHERE ACTIVO = 0
 UNION ALL
-SELECT 
+SELECT
     'Hoy',
-    COUNT(*) 
-FROM SUSCRIPTORES 
+    COUNT(*)
+FROM SUSCRIPTORES
 WHERE DATE(FECHA) = CURDATE()
 UNION ALL
-SELECT 
+SELECT
     'Esta semana',
-    COUNT(*) 
-FROM SUSCRIPTORES 
+    COUNT(*)
+FROM SUSCRIPTORES
 WHERE FECHA >= DATE_SUB(NOW(), INTERVAL 7 DAY)
 UNION ALL
-SELECT 
+SELECT
     'Este mes',
-    COUNT(*) 
-FROM SUSCRIPTORES 
+    COUNT(*)
+FROM SUSCRIPTORES
 WHERE FECHA >= DATE_SUB(NOW(), INTERVAL 30 DAY);
 ```
 
 ### Crecimiento mensual
+
 ```sql
-SELECT 
+SELECT
     DATE_FORMAT(FECHA, '%Y-%m') as mes,
     COUNT(*) as nuevos_suscriptores,
     SUM(COUNT(*)) OVER (ORDER BY DATE_FORMAT(FECHA, '%Y-%m')) as total_acumulado
@@ -405,6 +440,7 @@ LIMIT 12;
 ## 🎯 Próximos Pasos Opcionales
 
 ### 1. Habilitar reCAPTCHA
+
 Una vez que esté funcionando y probado:
 
 1. Obtener claves en: https://www.google.com/recaptcha/admin/create
@@ -416,14 +452,18 @@ Una vez que esté funcionando y probado:
 4. Actualizar `suscripcion.cgi` con la Secret Key
 
 ### 2. Email de Bienvenida
+
 Implementar envío automático de email al suscribirse usando:
+
 - SMTP directo
 - SendGrid API
 - Amazon SES
 - Mailgun
 
 ### 3. Panel de Administración
+
 Crear un panel web para:
+
 - Ver lista de suscriptores
 - Buscar y filtrar
 - Exportar a CSV/Excel
@@ -431,13 +471,17 @@ Crear un panel web para:
 - Gestionar bajas
 
 ### 4. Newsletter
+
 Integrar con sistema de newsletters:
+
 - Mailchimp
 - SendGrid
 - Sistema propio
 
 ### 5. Double Opt-in
+
 Implementar confirmación por email:
+
 - Enviar email con link de confirmación
 - Activar solo después del click
 - Mayor calidad de base de datos
@@ -466,6 +510,7 @@ Implementar confirmación por email:
 La sección está **100% integrada** en la home de VETAS.
 
 Solo falta:
+
 1. ✅ Crear la tabla `SUSCRIPTORES` en la base de datos
 2. ✅ Probar suscribiéndote
 3. ✅ Verificar que se guarde en BD
@@ -474,4 +519,4 @@ Solo falta:
 
 ---
 
-*Última actualización: 24 de enero de 2026*
+_Última actualización: 24 de enero de 2026_

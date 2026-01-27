@@ -9,6 +9,7 @@ Los textos con caracteres especiales ahora usan **HTML entities** para evitar pr
 ## 📝 Español (`seccion-suscripcion.html`)
 
 ### ANTES (caracteres problemáticos):
+
 ```
 ❌ Recibí VETAS en tu mail
 ❌ La revista líder de la industria de la madera y el mueble en Latinoamérica
@@ -17,6 +18,7 @@ Los textos con caracteres especiales ahora usan **HTML entities** para evitar pr
 ```
 
 ### DESPUÉS (HTML entities correctos):
+
 ```
 ✅ Recib&iacute; VETAS en tu mail
 ✅ La revista l&iacute;der de la industria de la madera y el mueble en Latinoam&eacute;rica
@@ -30,6 +32,7 @@ Los textos con caracteres especiales ahora usan **HTML entities** para evitar pr
 ## 📝 Português (`seccion-suscripcion-br.html`)
 
 ### ANTES:
+
 ```
 ❌ A revista líder da indústria da madeira e móveis na América Latina
 ❌ Edições digitais completas
@@ -38,6 +41,7 @@ Los textos con caracteres especiales ahora usan **HTML entities** para evitar pr
 ```
 
 ### DESPUÉS:
+
 ```
 ✅ A revista l&iacute;der da ind&uacute;stria da madeira e m&oacute;veis na Am&eacute;rica Latina
 ✅ Edi&ccedil;&otilde;es digitais completas
@@ -56,17 +60,17 @@ Los textos con caracteres especiales ahora usan **HTML entities** para evitar pr
 
 ## 🔤 HTML Entities Utilizados
 
-| Carácter | HTML Entity | Descripción |
-|----------|-------------|-------------|
-| á | `&aacute;` | a con acento agudo |
-| é | `&eacute;` | e con acento agudo |
-| í | `&iacute;` | i con acento agudo |
-| ó | `&oacute;` | o con acento agudo |
-| ú | `&uacute;` | u con acento agudo |
-| ñ | `&ntilde;` | eñe |
-| ç | `&ccedil;` | c con cedilla |
-| õ | `&otilde;` | o con tilde |
-| · | `&middot;` | punto medio (separador) |
+| Carácter | HTML Entity | Descripción             |
+| -------- | ----------- | ----------------------- |
+| á        | `&aacute;`  | a con acento agudo      |
+| é        | `&eacute;`  | e con acento agudo      |
+| í        | `&iacute;`  | i con acento agudo      |
+| ó        | `&oacute;`  | o con acento agudo      |
+| ú        | `&uacute;`  | u con acento agudo      |
+| ñ        | `&ntilde;`  | eñe                     |
+| ç        | `&ccedil;`  | c con cedilla           |
+| õ        | `&otilde;`  | o con tilde             |
+| ·        | `&middot;`  | punto medio (separador) |
 
 ---
 
@@ -75,9 +79,10 @@ Los textos con caracteres especiales ahora usan **HTML entities** para evitar pr
 Ahora los textos se verán correctamente en todos los navegadores:
 
 ### Español:
+
 ```
 Recibí VETAS en tu mail
-La revista líder de la industria de la madera y el mueble en Latinoamérica, 
+La revista líder de la industria de la madera y el mueble en Latinoamérica,
 ahora en formato digital.
 
 ✓ Ediciones digitales completas
@@ -90,9 +95,10 @@ Gratuito · Sin spam · Podés darte de baja cuando quieras
 ```
 
 ### Português:
+
 ```
 Receba VETAS no seu e-mail
-A revista líder da indústria da madeira e móveis na América Latina, 
+A revista líder da indústria da madeira e móveis na América Latina,
 agora em formato digital.
 
 ✓ Edições digitais completas
@@ -117,6 +123,7 @@ Gratuito · Sem spam · Cancele quando quiser
 ## 🧪 Cómo Verificar
 
 1. Abrir en el navegador:
+
    ```
    http://localhost/index.cgi?i=es
    http://localhost/index.cgi?i=en
@@ -137,6 +144,7 @@ Gratuito · Sem spam · Cancele quando quiser
 ## 💡 Por Qué Usar HTML Entities
 
 ### Problemas con UTF-8 directo:
+
 - ❌ Puede verse como: "RecibÃ­" o "lÃ­der"
 - ❌ Puede verse como: "âœ"" en lugar de ✓
 - ❌ Depende de la configuración del servidor
@@ -144,6 +152,7 @@ Gratuito · Sem spam · Cancele quando quiser
 - ❌ Puede fallar en algunos navegadores
 
 ### Ventajas de HTML Entities y Unicode en CSS:
+
 - ✅ Funciona siempre, en todos los navegadores
 - ✅ No depende de encoding del servidor
 - ✅ Compatible con cualquier configuración
@@ -153,16 +162,18 @@ Gratuito · Sem spam · Cancele quando quiser
 ### ✅ Corrección de Iconos CSS
 
 **ANTES (problema):**
+
 ```css
 .beneficios-list li::before {
-  content: '✓';  /* ❌ Sale como âœ" */
+  content: "✓"; /* ❌ Sale como âœ" */
 }
 ```
 
 **DESPUÉS (correcto):**
+
 ```css
 .beneficios-list li::before {
-  content: '\2713';  /* ✅ Unicode escape - siempre funciona */
+  content: "\2713"; /* ✅ Unicode escape - siempre funciona */
 }
 ```
 
@@ -173,39 +184,24 @@ El código `\2713` es el **escape Unicode** para el checkmark (✓) que funciona
 ## 📋 Referencias Completas
 
 ### Vocales con acento
-```html
-á → &aacute;
-é → &eacute;
-í → &iacute;
-ó → &oacute;
-ú → &uacute;
 
-À → &Aacute;
-É → &Eacute;
-Í → &Iacute;
-Ó → &Oacute;
-Ú → &Uacute;
+```html
+á → &aacute; é → &eacute; í → &iacute; ó → &oacute; ú → &uacute; À → &Aacute; É
+→ &Eacute; Í → &Iacute; Ó → &Oacute; Ú → &Uacute;
 ```
 
 ### Caracteres especiales español/portugués
+
 ```html
-ñ → &ntilde;
-Ñ → &Ntilde;
-ç → &ccedil;
-Ç → &Ccedil;
-ã → &atilde;
-õ → &otilde;
-â → &acirc;
-ê → &ecirc;
+ñ → &ntilde; Ñ → &Ntilde; ç → &ccedil; Ç → &Ccedil; ã → &atilde; õ → &otilde; â
+→ &acirc; ê → &ecirc;
 ```
 
 ### Símbolos
+
 ```html
-· → &middot; (punto medio)
-© → &copy; (copyright)
-® → &reg; (registered)
-™ → &trade; (trademark)
-€ → &euro; (euro)
+· → &middot; (punto medio) © → &copy; (copyright) ® → &reg; (registered) ™ →
+&trade; (trademark) € → &euro; (euro)
 ```
 
 ---
@@ -216,4 +212,4 @@ Los textos ahora se verán correctamente sin importar la configuración del serv
 
 ---
 
-*Correcciones aplicadas: 24 de enero de 2026*
+_Correcciones aplicadas: 24 de enero de 2026_

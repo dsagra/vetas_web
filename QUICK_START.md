@@ -19,17 +19,20 @@ ls -la demo-secciones.html
 ### Paso 2: Ver la demo
 
 Opción A - Abrir directamente en navegador:
+
 ```bash
 open demo-secciones.html
 ```
 
 Opción B - Servir localmente con Python:
+
 ```bash
 python3 -m http.server 8000
 # Luego abrir: http://localhost:8000/demo-secciones.html
 ```
 
 Opción C - Subir a tu servidor y visitar:
+
 ```
 https://vetas.com/demo-secciones.html
 ```
@@ -39,23 +42,27 @@ https://vetas.com/demo-secciones.html
 ## 📋 Checklist de Implementación
 
 ### ✅ Pre-requisitos
+
 - [ ] Bootstrap 5.x instalado
 - [ ] Font Awesome 6.x disponible
 - [ ] Acceso al servidor web
 - [ ] Permisos para editar archivos .cgi
 
 ### ✅ Archivos CSS
+
 - [ ] `/css/suscripcion.css` subido al servidor
 - [ ] `/css/anunciar.css` subido al servidor
 - [ ] Archivos accesibles vía web
 
 ### ✅ Archivos HTML
+
 - [ ] `/components/seccion-suscripcion.html` creado
 - [ ] `/components/seccion-suscripcion-en.html` creado (inglés)
 - [ ] `/components/seccion-suscripcion-br.html` creado (portugués)
 - [ ] `/components/seccion-anunciar.html` creado
 
 ### ✅ Integración
+
 - [ ] CSS incluidos en el `<head>` de tu página
 - [ ] Font Awesome cargado
 - [ ] Componentes incluidos donde corresponda
@@ -169,7 +176,7 @@ $email =~ s/^\s+|\s+$//g;
 
 # Insertar
 my $sth = $dbh->prepare(
-  "INSERT INTO SUSCRIPTORES (EMAIL, NOMBRE, IDIOMA, FECHA, IP, ACTIVO) 
+  "INSERT INTO SUSCRIPTORES (EMAIL, NOMBRE, IDIOMA, FECHA, IP, ACTIVO)
    VALUES (?, ?, ?, NOW(), ?, 1)"
 );
 
@@ -188,6 +195,7 @@ $dbh->disconnect();
 ```
 
 **Dar permisos de ejecución:**
+
 ```bash
 chmod 755 suscripcion_handler.cgi
 ```
@@ -221,19 +229,23 @@ nano components/seccion-anunciar.html
 ## 🧪 Testing
 
 ### 1. Verificar demo funciona:
+
 ```bash
 open http://localhost:8000/demo-secciones.html
 ```
 
 ### 2. Verificar CSS carga:
+
 Abrir DevTools (F12) → Network → buscar `suscripcion.css` y `anunciar.css`
 
 ### 3. Probar formulario:
+
 - Ingresar email válido
 - Verificar redirección
 - Revisar base de datos
 
 ### 4. Probar responsive:
+
 - Desktop: 1920px
 - Tablet: 768px
 - Mobile: 375px
@@ -279,6 +291,7 @@ echo "✨ Verificación completa!"
 ```
 
 Guardar como `check-vetas.sh` y ejecutar:
+
 ```bash
 chmod +x check-vetas.sh
 ./check-vetas.sh
@@ -289,6 +302,7 @@ chmod +x check-vetas.sh
 ## 🆘 Problemas Comunes
 
 ### CSS no carga
+
 ```bash
 # Verificar permisos
 chmod 644 css/*.css
@@ -298,6 +312,7 @@ chmod 644 css/*.css
 ```
 
 ### Formulario no envía
+
 ```bash
 # Verificar permisos del CGI
 chmod 755 suscripcion_handler.cgi
@@ -307,15 +322,20 @@ tail -f /var/log/apache2/error.log
 ```
 
 ### Base de datos no conecta
+
 ```perl
 # Verificar ConectarDB.pm
 # Asegurate que las credenciales sean correctas
 ```
 
 ### Iconos no aparecen
+
 ```html
 <!-- Verificar Font Awesome está cargado -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 ```
 
 ---
@@ -369,6 +389,7 @@ Si necesitas ayuda:
 **¡Listo para producción!** 🚀
 
 Una vez verificado todo, simplemente:
+
 1. Subir archivos al servidor
 2. Incluir CSS en el `<head>`
 3. Incluir componentes HTML donde corresponda

@@ -50,16 +50,19 @@ DESCRIBE SUSCRIPTORES;
 ### 3. Probar el formulario
 
 **Español:**
+
 ```
 http://localhost/index.cgi?i=es
 ```
 
 **English:**
+
 ```
 http://localhost/index.cgi?i=en
 ```
 
 **Português:**
+
 ```
 http://localhost/index.cgi?i=br
 ```
@@ -83,12 +86,14 @@ SELECT * FROM SUSCRIPTORES ORDER BY FECHA DESC;
 ## ✅ Configuración Actual
 
 ### Base de Datos
+
 - **Database**: `vetas_VETAS2`
 - **User**: `vetas_user`
 - **Password**: `ghewrp54`
 - **Host**: `localhost`
 
 ### Archivos Configurados
+
 - ✅ `suscripcion.cgi` - Procesador configurado
 - ✅ `components/seccion-suscripcion.html` - Formulario ES
 - ✅ `components/seccion-suscripcion-en.html` - Formulario EN
@@ -96,6 +101,7 @@ SELECT * FROM SUSCRIPTORES ORDER BY FECHA DESC;
 - ✅ `index.cgi` - Integración lista (necesita rehacer)
 
 ### reCAPTCHA
+
 🔴 **Temporalmente DESHABILITADO para testing**
 
 Puedes probar el formulario SIN reCAPTCHA. Los registros se guardarán correctamente.
@@ -105,31 +111,36 @@ Puedes probar el formulario SIN reCAPTCHA. Los registros se guardarán correctam
 ## 📊 Consultas Útiles
 
 ### Ver todos los suscriptores
+
 ```sql
 SELECT * FROM SUSCRIPTORES ORDER BY FECHA DESC;
 ```
 
 ### Contar suscriptores
+
 ```sql
 SELECT COUNT(*) as total FROM SUSCRIPTORES WHERE ACTIVO = 1;
 ```
 
 ### Ver último suscriptor
+
 ```sql
 SELECT * FROM SUSCRIPTORES ORDER BY FECHA DESC LIMIT 1;
 ```
 
 ### Suscriptores por idioma
+
 ```sql
-SELECT IDIOMA, COUNT(*) as total 
-FROM SUSCRIPTORES 
-WHERE ACTIVO = 1 
+SELECT IDIOMA, COUNT(*) as total
+FROM SUSCRIPTORES
+WHERE ACTIVO = 1
 GROUP BY IDIOMA;
 ```
 
 ### Suscriptores de hoy
+
 ```sql
-SELECT * FROM SUSCRIPTORES 
+SELECT * FROM SUSCRIPTORES
 WHERE DATE(FECHA) = CURDATE()
 ORDER BY FECHA DESC;
 ```
@@ -145,7 +156,7 @@ Como deshiciste los cambios en `index.cgi`, necesitas volver a integrar la secci
 Editar `/Users/damiansagranichne/dev/vetas_web/index.cgi` y buscar:
 
 ```perl
-print <<EOFHTML;      
+print <<EOFHTML;
       </div>
     </div>
   </div>
@@ -161,7 +172,7 @@ open FOOTER;
 Y reemplazar por:
 
 ```perl
-print <<EOFHTML;      
+print <<EOFHTML;
       </div>
     </div>
   </div>
@@ -210,13 +221,16 @@ Puedo crear un script que haga la integración automáticamente si me lo pides.
 ## 🐛 Troubleshooting
 
 ### Error: "Can't locate LWP/UserAgent.pm"
+
 ```bash
 cpan install LWP::UserAgent
 cpan install JSON
 ```
 
 ### Error: "DBI connect failed"
+
 Verificar credenciales en `suscripcion.cgi` línea 84:
+
 ```perl
 my $database = "vetas_VETAS2";
 my $user = "vetas_user";
@@ -224,18 +238,23 @@ my $password = "ghewrp54";
 ```
 
 ### Error: "Table doesn't exist"
+
 Ejecutar:
+
 ```bash
 mysql -u vetas_user -pghewrp54 vetas_VETAS2 < sql/create_suscriptores_table.sql
 ```
 
 ### No se ve el diseño CSS
+
 El CSS está embebido en los componentes HTML. Verificar que:
+
 1. Los archivos `components/seccion-suscripcion*.html` existen
 2. El `index.cgi` los está incluyendo correctamente
 3. No hay errores en los logs: `tail -f /var/log/apache2/error.log`
 
 ### El formulario no envía
+
 1. Verificar que `suscripcion.cgi` tenga permisos de ejecución:
    ```bash
    chmod 755 suscripcion.cgi
@@ -263,12 +282,14 @@ El CSS está embebido en los componentes HTML. Verificar que:
 ## 🎯 Próximos Pasos
 
 ### Para Testing (AHORA)
+
 1. ✅ Crear tabla `SUSCRIPTORES`
 2. ✅ Integrar en `index.cgi`
 3. ✅ Probar suscripción
 4. ✅ Verificar que se guarde en BD
 
 ### Para Producción (DESPUÉS)
+
 1. Configurar reCAPTCHA v2 (obtener claves en Google)
 2. Descomentar reCAPTCHA en componentes HTML
 3. Actualizar `suscripcion.cgi` con la Secret Key
@@ -283,6 +304,7 @@ El CSS está embebido en los componentes HTML. Verificar que:
 Del archivo `contacto.cgi` tenemos:
 
 **Site Key (pública):**
+
 ```
 6LcI1FIsAAAAAL4Q92H_tU_NbIuX98WzbEIM-0gJ
 ```
@@ -297,6 +319,7 @@ https://www.google.com/recaptcha/admin/create
 ## 🎉 ¡Listo para Probar!
 
 Todo está configurado. Solo necesitas:
+
 1. Crear la tabla SUSCRIPTORES
 2. Re-integrar en index.cgi
 3. ¡Probar!
@@ -305,4 +328,4 @@ Todo está configurado. Solo necesitas:
 
 ---
 
-*Actualizado: 24 de enero de 2026*
+_Actualizado: 24 de enero de 2026_

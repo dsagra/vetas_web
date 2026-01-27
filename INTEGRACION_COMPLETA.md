@@ -52,6 +52,7 @@ La sección de suscripción ha sido **integrada exitosamente** en la home de VET
 ## 🎨 Vista Previa del Diseño
 
 ### Desktop (1200px+)
+
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │                    RECIBÍ VETAS EN TU MAIL                     │
@@ -72,6 +73,7 @@ La sección de suscripción ha sido **integrada exitosamente** en la home de VET
 ```
 
 ### Mobile (< 768px)
+
 ```
 ┌──────────────────────────┐
 │  RECIBÍ VETAS EN TU MAIL │
@@ -107,10 +109,10 @@ La sección de suscripción ha sido **integrada exitosamente** en la home de VET
 
 ## 🌍 Versiones Disponibles
 
-| Idioma | Archivo | URL de Prueba |
-|--------|---------|---------------|
-| 🇦🇷 Español | `seccion-suscripcion.html` | `index.cgi?i=es` |
-| 🇺🇸 English | `seccion-suscripcion-en.html` | `index.cgi?i=en` |
+| Idioma       | Archivo                       | URL de Prueba    |
+| ------------ | ----------------------------- | ---------------- |
+| 🇦🇷 Español   | `seccion-suscripcion.html`    | `index.cgi?i=es` |
+| 🇺🇸 English   | `seccion-suscripcion-en.html` | `index.cgi?i=en` |
 | 🇧🇷 Português | `seccion-suscripcion-br.html` | `index.cgi?i=br` |
 
 ---
@@ -181,9 +183,11 @@ La sección de suscripción ha sido **integrada exitosamente** en la home de VET
 ## 📦 Archivos Creados/Modificados
 
 ### ✅ Archivos Modificados
+
 - [x] `index.cgi` - Integración de la sección
 
 ### ✅ Archivos Nuevos
+
 - [x] `components/seccion-suscripcion.html` - Español
 - [x] `components/seccion-suscripcion-en.html` - English
 - [x] `components/seccion-suscripcion-br.html` - Português
@@ -197,6 +201,7 @@ La sección de suscripción ha sido **integrada exitosamente** en la home de VET
 ## 🎯 Características Implementadas
 
 ### ✨ Diseño
+
 - [x] Diseño moderno y profesional
 - [x] Fondo con textura de madera sutil
 - [x] Layout responsive (desktop + mobile)
@@ -205,6 +210,7 @@ La sección de suscripción ha sido **integrada exitosamente** en la home de VET
 - [x] Tipografía legible y moderna
 
 ### 🔧 Funcionalidad
+
 - [x] Formulario con validación HTML5
 - [x] reCAPTCHA v2 anti-spam
 - [x] Validación de email servidor
@@ -214,12 +220,14 @@ La sección de suscripción ha sido **integrada exitosamente** en la home de VET
 - [x] Soporte multiidioma completo
 
 ### 📊 Base de Datos
+
 - [x] Tabla SUSCRIPTORES
 - [x] Campos: ID, EMAIL, NOMBRE, IDIOMA, FECHA, ACTIVO, IP, USER_AGENT
 - [x] Índices optimizados
 - [x] Charset UTF-8
 
 ### 🛡️ Seguridad
+
 - [x] reCAPTCHA validation
 - [x] Prepared statements (SQL injection)
 - [x] Validación de inputs
@@ -235,11 +243,13 @@ Para que la sección funcione completamente, necesitas:
 ### 1. Configurar Google reCAPTCHA
 
 **Obtener claves:**
+
 ```
 🔗 https://www.google.com/recaptcha/admin/create
 ```
 
 **Configurar:**
+
 1. En `components/seccion-suscripcion*.html` → reemplazar `TU_SITE_KEY_AQUI`
 2. En `suscripcion.cgi` → reemplazar `TU_SECRET_KEY_AQUI`
 
@@ -281,14 +291,14 @@ Una vez en producción, puedes consultar:
 SELECT COUNT(*) FROM SUSCRIPTORES WHERE ACTIVO = 1;
 
 -- Por idioma
-SELECT IDIOMA, COUNT(*) 
-FROM SUSCRIPTORES 
-WHERE ACTIVO = 1 
+SELECT IDIOMA, COUNT(*)
+FROM SUSCRIPTORES
+WHERE ACTIVO = 1
 GROUP BY IDIOMA;
 
 -- Últimas suscripciones
-SELECT * FROM SUSCRIPTORES 
-ORDER BY FECHA_SUSCRIPCION DESC 
+SELECT * FROM SUSCRIPTORES
+ORDER BY FECHA_SUSCRIPCION DESC
 LIMIT 10;
 
 -- Tasa de conversión diaria
@@ -305,6 +315,7 @@ LIMIT 30;
 ## 💡 Tips de Optimización
 
 ### Para mejorar conversión:
+
 1. **A/B Testing**: Probar diferentes copies y CTAs
 2. **Urgencia**: "Únete a +5000 profesionales del sector"
 3. **Social Proof**: Agregar testimonios
@@ -312,6 +323,7 @@ LIMIT 30;
 5. **Exit Intent**: Popup cuando el usuario va a salir
 
 ### Para mejorar rendimiento:
+
 1. **Lazy Loading**: Cargar reCAPTCHA solo cuando sea visible
 2. **CDN**: Servir assets desde CDN
 3. **Caché**: Cachear los componentes HTML
@@ -328,8 +340,8 @@ LIMIT 30;
 --vetas-light: #e8f5e3;
 
 /* Madera */
---vetas-wood: #8B7355;
---vetas-wood-light: #C19A6B;
+--vetas-wood: #8b7355;
+--vetas-wood-light: #c19a6b;
 
 /* Neutrales */
 --neutral-50: #fafafa;
@@ -338,9 +350,9 @@ LIMIT 30;
 --neutral-800: #262626;
 
 /* Sombras */
---shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
---shadow-md: 0 4px 16px rgba(0,0,0,0.12);
---shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+--shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+--shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
 ```
 
 ---
@@ -350,15 +362,15 @@ LIMIT 30;
 ```css
 /* Mobile First */
 @media (min-width: 768px) {
-    /* Tablet */
+  /* Tablet */
 }
 
 @media (min-width: 1024px) {
-    /* Desktop */
+  /* Desktop */
 }
 
 @media (min-width: 1280px) {
-    /* Large Desktop */
+  /* Large Desktop */
 }
 ```
 
@@ -394,4 +406,4 @@ La sección está **100% integrada** y lista para empezar a captar nuevos lector
 
 ---
 
-*Documentación generada el 24 de enero de 2026*
+_Documentación generada el 24 de enero de 2026_

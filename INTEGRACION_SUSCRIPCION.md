@@ -21,6 +21,7 @@ El sistema detecta automáticamente el idioma actual y muestra la versión corre
 ## 📝 Archivos Integrados
 
 ### 1. `index.cgi` (Modificado)
+
 ```perl
 # Incluir la sección de suscripción según el idioma
 if ($idioma eq "es") {
@@ -47,7 +48,9 @@ elsif ($idioma eq "br") {
 ```
 
 ### 2. `suscripcion.cgi` (Nuevo)
+
 Script CGI completo que procesa las suscripciones con:
+
 - ✅ Validación de email
 - ✅ reCAPTCHA v2 para prevenir spam
 - ✅ Almacenamiento en base de datos
@@ -60,6 +63,7 @@ Script CGI completo que procesa las suscripciones con:
 ### 1. Google reCAPTCHA
 
 **Obtener las claves:**
+
 1. Ve a: https://www.google.com/recaptcha/admin/create
 2. Crea un nuevo sitio con reCAPTCHA v2
 3. Añade tu dominio: `www.vetas.com`
@@ -68,15 +72,20 @@ Script CGI completo que procesa las suscripciones con:
 **Configurar en los archivos:**
 
 #### A. En `components/seccion-suscripcion.html` (y versiones EN/BR)
+
 ```html
 <!-- Buscar esta línea: -->
 <div class="g-recaptcha" data-sitekey="TU_SITE_KEY_AQUI"></div>
 
 <!-- Reemplazar por: -->
-<div class="g-recaptcha" data-sitekey="6LeXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"></div>
+<div
+  class="g-recaptcha"
+  data-sitekey="6LeXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+></div>
 ```
 
 #### B. En `suscripcion.cgi`
+
 ```perl
 # Buscar esta línea:
 my $RECAPTCHA_SECRET_KEY = 'TU_SECRET_KEY_AQUI';
@@ -95,7 +104,7 @@ sub conectar_db {
     my $host = "localhost";
     my $user = "vetascom_web";
     my $password = "w3bv3t4s";  # ⚠️ Cambiar por tu contraseña real
-    
+
     # ... resto del código
 }
 ```
@@ -138,49 +147,56 @@ CREATE TABLE IF NOT EXISTS SUSCRIPTORES (
 ### Manual
 
 1. **Configurar reCAPTCHA**
+
    ```bash
    # Editar los 3 archivos de componentes
    nano components/seccion-suscripcion.html
    nano components/seccion-suscripcion-en.html
    nano components/seccion-suscripcion-br.html
-   
+
    # Buscar y reemplazar: TU_SITE_KEY_AQUI
    ```
 
 2. **Configurar Secret Key**
+
    ```bash
    nano suscripcion.cgi
    # Buscar y reemplazar: TU_SECRET_KEY_AQUI
    ```
 
 3. **Verificar permisos**
+
    ```bash
    chmod 755 suscripcion.cgi
    chmod 644 components/seccion-suscripcion*.html
    ```
 
 4. **Crear tabla de BD** (si no existe)
+
    ```bash
    mysql -u vetascom_web -p vetascom_web < sql/create_suscriptores_table.sql
    ```
 
 5. **Probar la integración**
+
    ```bash
    # Visitar:
    https://www.vetas.com/index.cgi?i=es
-   
+
    # Scroll hasta el final y verificar que aparece el formulario
    ```
 
 ## 🧪 Testing
 
 ### 1. Verificar Visualización
+
 - [ ] La sección aparece al final de la home
 - [ ] El diseño es responsive (mobile/desktop)
 - [ ] Los 3 idiomas funcionan correctamente
 - [ ] El reCAPTCHA se muestra correctamente
 
 ### 2. Verificar Funcionalidad
+
 - [ ] El formulario envía datos correctamente
 - [ ] reCAPTCHA valida antes de enviar
 - [ ] Los datos se guardan en la base de datos
@@ -191,16 +207,19 @@ CREATE TABLE IF NOT EXISTS SUSCRIPTORES (
 ### 3. Testing por Idioma
 
 **Español:**
+
 ```
 https://www.vetas.com/index.cgi?i=es
 ```
 
 **English:**
+
 ```
 https://www.vetas.com/index.cgi?i=en
 ```
 
 **Português:**
+
 ```
 https://www.vetas.com/index.cgi?i=br
 ```
@@ -208,36 +227,41 @@ https://www.vetas.com/index.cgi?i=br
 ## 📊 Consultas Útiles
 
 ### Ver todos los suscriptores
+
 ```sql
 SELECT * FROM SUSCRIPTORES ORDER BY FECHA_SUSCRIPCION DESC;
 ```
 
 ### Contar suscriptores activos
+
 ```sql
 SELECT COUNT(*) as total FROM SUSCRIPTORES WHERE ACTIVO = 1;
 ```
 
 ### Suscriptores por idioma
+
 ```sql
-SELECT IDIOMA, COUNT(*) as total 
-FROM SUSCRIPTORES 
-WHERE ACTIVO = 1 
+SELECT IDIOMA, COUNT(*) as total
+FROM SUSCRIPTORES
+WHERE ACTIVO = 1
 GROUP BY IDIOMA;
 ```
 
 ### Suscriptores del último mes
+
 ```sql
-SELECT * FROM SUSCRIPTORES 
+SELECT * FROM SUSCRIPTORES
 WHERE FECHA_SUSCRIPCION >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
 AND ACTIVO = 1
 ORDER BY FECHA_SUSCRIPCION DESC;
 ```
 
 ### Exportar emails para newsletter
+
 ```sql
-SELECT EMAIL, NOMBRE, IDIOMA 
-FROM SUSCRIPTORES 
-WHERE ACTIVO = 1 
+SELECT EMAIL, NOMBRE, IDIOMA
+FROM SUSCRIPTORES
+WHERE ACTIVO = 1
 INTO OUTFILE '/tmp/suscriptores.csv'
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
@@ -252,20 +276,21 @@ Los estilos CSS están dentro de cada archivo HTML en `components/`. Para person
 
 ```html
 <style>
-    /* Variables de color */
-    :root {
-        --vetas-primary: #72bf44;    /* Verde principal */
-        --vetas-dark: #2c5f2d;       /* Verde oscuro */
-        --vetas-wood: #8B7355;       /* Madera */
-    }
-    
-    /* Personalizar aquí... */
+  /* Variables de color */
+  :root {
+    --vetas-primary: #72bf44; /* Verde principal */
+    --vetas-dark: #2c5f2d; /* Verde oscuro */
+    --vetas-wood: #8b7355; /* Madera */
+  }
+
+  /* Personalizar aquí... */
 </style>
 ```
 
 ### Modificar Textos
 
 Editar directamente los archivos HTML en `components/`:
+
 - `seccion-suscripcion.html` (Español)
 - `seccion-suscripcion-en.html` (English)
 - `seccion-suscripcion-br.html` (Português)
@@ -273,6 +298,7 @@ Editar directamente los archivos HTML en `components/`:
 ## 🔒 Seguridad
 
 ### ✅ Implementado
+
 - [x] reCAPTCHA v2 para prevenir bots
 - [x] Validación de formato de email
 - [x] Sanitización de inputs
@@ -281,6 +307,7 @@ Editar directamente los archivos HTML en `components/`:
 - [x] HTTPS recomendado
 
 ### ⚠️ Recomendaciones
+
 1. **NUNCA** commitear las claves de reCAPTCHA al repositorio
 2. Usar variables de entorno para credenciales sensibles
 3. Implementar rate limiting si hay mucho spam
@@ -290,23 +317,28 @@ Editar directamente los archivos HTML en `components/`:
 ## 📧 Próximos Pasos (Opcional)
 
 ### 1. Email de Bienvenida
+
 Implementar función `enviar_email_bienvenida()` en `suscripcion.cgi` usando:
+
 - SMTP
 - SendGrid
 - Amazon SES
 
 ### 2. Confirmación de Email (Double Opt-in)
+
 1. Enviar email con link de confirmación
 2. Token único de verificación
 3. Activar solo después del click
 
 ### 3. Panel de Administración
+
 - Ver lista de suscriptores
 - Exportar a CSV/Excel
 - Estadísticas y métricas
 - Gestión de bajas
 
 ### 4. Integración con Newsletter
+
 - Mailchimp
 - SendGrid
 - Newsletter propia
@@ -314,6 +346,7 @@ Implementar función `enviar_email_bienvenida()` en `suscripcion.cgi` usando:
 ## 🆘 Troubleshooting
 
 ### El formulario no se muestra
+
 ```bash
 # Verificar que los archivos existen
 ls -la components/seccion-suscripcion*.html
@@ -323,6 +356,7 @@ chmod 644 components/seccion-suscripcion*.html
 ```
 
 ### Error "No se pudo abrir seccion-suscripcion.html"
+
 ```bash
 # Verificar que estás en el directorio correcto
 pwd
@@ -332,11 +366,13 @@ pwd
 ```
 
 ### reCAPTCHA no funciona
+
 1. Verificar que la Site Key es correcta
 2. Verificar que el dominio está autorizado en Google reCAPTCHA
 3. Verificar que el script de Google se carga: View Source → buscar `www.google.com/recaptcha`
 
 ### Error al guardar en base de datos
+
 ```bash
 # Verificar conexión
 mysql -u vetascom_web -p vetascom_web
@@ -349,6 +385,7 @@ DESCRIBE SUSCRIPTORES;
 ```
 
 ### Módulos Perl faltantes
+
 ```bash
 # Instalar módulos necesarios
 cpan install LWP::UserAgent
@@ -360,6 +397,7 @@ cpan install DBD::mysql
 ## 📞 Soporte
 
 Para problemas o consultas:
+
 - Email: info@vetas.com
 - Revisar logs del servidor: `/var/log/apache2/error.log`
 - Revisar logs de MySQL: `/var/log/mysql/error.log`

@@ -3,6 +3,7 @@
 ## Paleta de Colores
 
 ### Colores Principales
+
 ```css
 /* Verde VETAS (Primario) */
 --vetas-green: #72bf44;
@@ -58,6 +59,7 @@ Button Text
 ## Espaciado
 
 ### Sistema de Espaciado (8px base)
+
 ```
 XS:  8px  (0.5rem)
 S:   16px (1rem)
@@ -68,6 +70,7 @@ XXL: 64px (4rem)
 ```
 
 ### Padding de Secciones
+
 ```css
 /* Desktop */
 padding: 80px 0;
@@ -88,6 +91,7 @@ padding: 80px 0;
 ### Botones
 
 #### Botón Primario (CTA)
+
 ```css
 Características:
 - Background: Gradiente verde (#72bf44 → #5fa835)
@@ -99,6 +103,7 @@ Características:
 ```
 
 #### Botón Secundario (Outline)
+
 ```css
 Características:
 - Background: transparent
@@ -132,6 +137,7 @@ Especificaciones:
 ### Formularios
 
 #### Input Field
+
 ```css
 Características:
 - Width: 100%
@@ -146,6 +152,7 @@ Características:
 ## Iconografía
 
 ### Íconos de Beneficios (Suscripción)
+
 ```
 ✓ Checkmark circular
   - Size: 24x24px
@@ -155,6 +162,7 @@ Características:
 ```
 
 ### Íconos de Beneficios (Publicidad)
+
 ```
 Font Awesome 6 Icons:
 - fa-users (Audiencia)
@@ -175,6 +183,7 @@ Contenedor:
 ### Desktop (> 992px)
 
 #### Sección Suscripción
+
 ```
 ┌──────────────────────────────────────────┐
 │                                          │
@@ -189,6 +198,7 @@ Gap: 60px
 ```
 
 #### Sección Publicidad
+
 ```
 ┌──────────────────────────────────────────┐
 │          Título + Bajada (centrado)      │
@@ -222,48 +232,60 @@ Gap: 40px entre secciones
 ## Animaciones y Transiciones
 
 ### Estándar
+
 ```css
 transition: all 0.3s ease;
 ```
 
 ### Hover en Botones
+
 ```css
 transform: translateY(-2px);
-transition: transform 0.3s ease, box-shadow 0.3s ease;
+transition:
+  transform 0.3s ease,
+  box-shadow 0.3s ease;
 ```
 
 ### Hover en Cards
+
 ```css
 transform: translateY(-4px);
 transition: all 0.3s ease;
 ```
 
 ### Focus en Inputs
+
 ```css
-transition: border-color 0.3s ease, box-shadow 0.3s ease;
+transition:
+  border-color 0.3s ease,
+  box-shadow 0.3s ease;
 ```
 
 ## Sombras (Shadows)
 
 ### Nivel 1 - Sutiles
+
 ```css
 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 /* Uso: Cards, formularios */
 ```
 
 ### Nivel 2 - Medias
+
 ```css
 box-shadow: 0 4px 16px rgba(114, 191, 68, 0.3);
 /* Uso: Botones primarios */
 ```
 
 ### Nivel 3 - Elevadas
+
 ```css
 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 /* Uso: Contenedores principales */
 ```
 
 ### Hover Shadows
+
 ```css
 box-shadow: 0 6px 24px rgba(114, 191, 68, 0.4);
 /* Uso: Botones en hover */
@@ -284,21 +306,26 @@ Círculo: 50%   → Checkmarks, badges
 /* Mobile First Approach */
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) { }
+@media (min-width: 576px) {
+}
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) { }
+@media (min-width: 768px) {
+}
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { }
+@media (min-width: 992px) {
+}
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { }
+@media (min-width: 1200px) {
+}
 ```
 
 ## Accesibilidad
 
 ### Contraste de Colores
+
 ```
 ✅ WCAG AAA Compliant
 
@@ -313,6 +340,7 @@ Texto claro sobre oscuro:
 ```
 
 ### Navegación por Teclado
+
 ```
 Tab Order:
 1. Email input
@@ -327,6 +355,7 @@ Focus visible:
 ## Copywriting Guidelines
 
 ### Tono de Voz
+
 ```
 ✅ Hacer:
 - Lenguaje profesional
@@ -344,6 +373,7 @@ Focus visible:
 ```
 
 ### Estructura de Beneficios
+
 ```
 Formato:
 [Sustantivo] + [adjetivo específico]
@@ -358,6 +388,7 @@ Ejemplos:
 ## Performance
 
 ### CSS Optimization
+
 ```css
 /* Usar variables CSS */
 :root {
@@ -371,12 +402,13 @@ Ejemplos:
 ```
 
 ### Carga de Recursos
+
 ```html
 <!-- Preload críticos -->
-<link rel="preload" href="/css/suscripcion.css" as="style">
+<link rel="preload" href="/css/suscripcion.css" as="style" />
 
 <!-- Defer no-críticos -->
-<link rel="preload" href="https://fontawesome.com/..." as="style">
+<link rel="preload" href="https://fontawesome.com/..." as="style" />
 
 <!-- Lazy load para iconos below the fold -->
 <i class="fas fa-users" loading="lazy"></i>
@@ -385,6 +417,7 @@ Ejemplos:
 ## Testing Checklist
 
 ### Visual Testing
+
 - [ ] Chrome (últimas 2 versiones)
 - [ ] Safari (últimas 2 versiones)
 - [ ] Firefox (últimas 2 versiones)
@@ -393,6 +426,7 @@ Ejemplos:
 - [ ] Chrome Mobile (Android)
 
 ### Responsive Testing
+
 - [ ] 320px (iPhone SE)
 - [ ] 375px (iPhone X)
 - [ ] 768px (iPad)
@@ -401,6 +435,7 @@ Ejemplos:
 - [ ] 1920px (Desktop HD)
 
 ### Accessibility Testing
+
 - [ ] Navegación por teclado
 - [ ] Screen reader (NVDA/JAWS)
 - [ ] Contraste de colores
@@ -408,6 +443,7 @@ Ejemplos:
 - [ ] Focus visible
 
 ### Performance Testing
+
 - [ ] Lighthouse Score > 90
 - [ ] First Contentful Paint < 1.5s
 - [ ] Time to Interactive < 3.0s
