@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VETAS - La revista líder de la industria de la madera y el mueble en Latinoamérica desde 1980">
+  <title>Suscripción y Publicidad | VETAS</title>
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Estilos base -->
+  <link rel="stylesheet" href="/css/estilos.css">
+  
+  <!-- Estilos de las secciones -->
+  <link rel="stylesheet" href="/css/suscripcion.css">
+  <link rel="stylesheet" href="/css/anunciar.css">
+  
+  <style>
+    /* Reset y ajustes generales para la demo */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    .demo-header {
+      background: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
+      color: white;
+      padding: 60px 0 40px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    
+    .demo-header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+    
+    .demo-header p {
+      font-size: 1.25rem;
+      opacity: 0.95;
+      font-weight: 300;
+    }
+    
+    .demo-info {
+      background: #f8f9fa;
+      padding: 40px 0;
+      text-align: center;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .demo-info h2 {
+      font-size: 1.5rem;
+      color: #2c3e50;
+      margin-bottom: 16px;
+    }
+    
+    .demo-info p {
+      color: #5a6c7d;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    .demo-footer {
+      background: #2c3e50;
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      margin-top: 0;
+    }
+    
+    .demo-footer p {
+      margin: 0;
+      opacity: 0.8;
+    }
+    
+    /* Separador visual entre secciones */
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #72bf44, transparent);
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header de Demo -->
+  <header class="demo-header">
+    <div class="container">
+      <h1>VETAS</h1>
+      <p>Dos secciones premium para tu sitio web</p>
+    </div>
+  </header>
+  
+  <!-- Info de Demo -->
+  <div class="demo-info">
+    <div class="container">
+      <h2>🎨 Vista previa de componentes</h2>
+      <p>
+        A continuación se presentan las dos secciones diseñadas para VETAS: 
+        <strong>Suscripción</strong> y <strong>Publicidad</strong>. 
+        Ambas son completamente responsive, accesibles y listas para producción.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================
+       SECCIÓN 1: SUSCRIPCIÓN
+       ============================================ -->
+  <section class="vetas-suscripcion">
+    <div class="container">
+      <div class="suscripcion-content">
+        
+        <!-- Columna de Información -->
+        <div class="suscripcion-info">
+          <h2>Recibí VETAS en tu mail</h2>
+          <p class="bajada">
+            La revista líder de la industria de la madera y el mueble en Latinoamérica, 
+            ahora en formato digital.
+          </p>
+          
+          <ul class="beneficios-list">
+            <li>Ediciones digitales completas</li>
+            <li>Notas técnicas y tendencias del sector</li>
+            <li>Cobertura de ferias y eventos internacionales</li>
+            <li>Contenido exclusivo para suscriptores</li>
+            <li>Novedades directo a tu mail</li>
+          </ul>
+        </div>
+        
+        <!-- Columna de Formulario -->
+        <div class="suscripcion-form-wrapper">
+          <h3>Suscribite gratis</h3>
+          
+          <form id="formSuscripcion" action="/suscripcion.cgi" method="POST">
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="tu@email.com" 
+                required
+                autocomplete="email"
+              >
+            </div>
+            
+            <div class="form-group">
+              <label for="nombre">Nombre (opcional)</label>
+              <input 
+                type="text" 
+                id="nombre" 
+                name="nombre" 
+                placeholder="Tu nombre"
+                autocomplete="name"
+              >
+            </div>
+            
+            <button type="submit" class="btn-suscribirse">
+              Suscribirme a VETAS
+            </button>
+            
+            <p class="form-disclaimer">
+              <strong>Gratuito</strong> · Sin spam · Podés darte de baja cuando quieras
+            </p>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Divisor visual -->
+  <div class="section-divider"></div>
+
+  <!-- ============================================
+       SECCIÓN 2: ANUNCIÁ EN VETAS
+       ============================================ -->
+  <section class="vetas-anunciar">
+    <div class="container">
+      
+      <!-- Header -->
+      <div class="anunciar-header">
+        <h2>Conectá tu marca con el público correcto</h2>
+        <p class="bajada">
+          Desde 1980, VETAS acompaña a los profesionales, empresas y tomadores de decisión 
+          de la industria de la madera y el mueble en toda Latinoamérica.
+        </p>
+      </div>
+      
+      <!-- Grid de Beneficios -->
+      <div class="beneficios-grid">
+        
+        <div class="beneficio-item">
+          <div class="beneficio-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h4>Audiencia especializada</h4>
+          <p>Conectá con profesionales y decisores del sector maderero y del mueble</p>
+        </div>
+        
+        <div class="beneficio-item">
+          <div class="beneficio-icon">
+            <i class="fas fa-globe-americas"></i>
+          </div>
+          <h4>Presencia regional</h4>
+          <p>Alcance en toda Latinoamérica con foco en los mercados más importantes</p>
+        </div>
+        
+        <div class="beneficio-item">
+          <div class="beneficio-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h4>Múltiples formatos</h4>
+          <p>Opciones gráficas, digitales y editoriales adaptadas a tus objetivos</p>
+        </div>
+        
+        <div class="beneficio-item">
+          <div class="beneficio-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <h4>Ediciones especiales</h4>
+          <p>Cobertura exclusiva de ferias y eventos clave de la industria</p>
+        </div>
+        
+        <div class="beneficio-item">
+          <div class="beneficio-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <h4>Marca de valor</h4>
+          <p>Asociá tu empresa con contenido técnico de alta calidad y relevancia</p>
+        </div>
+        
+      </div>
+      
+      <!-- CTAs -->
+      <div class="anunciar-ctas">
+        <div class="ctas-wrapper">
+          <a href="/media-kit.pdf" download class="btn-anunciar primary">
+            <i class="fas fa-download"></i>
+            Descargar Media Kit
+          </a>
+          <a href="/contacto.cgi" class="btn-anunciar secondary">
+            <i class="fas fa-envelope"></i>
+            Contactar al equipo comercial
+          </a>
+        </div>
+        
+        <div class="anunciar-autoridad">
+          <span>Más de 40 años acompañando a la industria</span>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Footer de Demo -->
+  <footer class="demo-footer">
+    <div class="container">
+      <p>
+        <strong>VETAS</strong> | Componentes diseñados por un equipo UX/UI senior | 2026
+      </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // ===== FORMULARIO DE SUSCRIPCIÓN =====
+      const formSuscripcion = document.getElementById('formSuscripcion');
+      
+      if (formSuscripcion) {
+        formSuscripcion.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const email = document.getElementById('email').value;
+          const nombre = document.getElementById('nombre').value;
+          
+          // Validación básica
+          if (!email || !email.includes('@')) {
+            alert('Por favor, ingresá un email válido');
+            return;
+          }
+          
+          // Aquí iría la lógica de envío al backend
+          console.log('Suscripción:', { email, nombre });
+          
+          // Simulación de envío exitoso
+          alert('¡Gracias por suscribirte a VETAS!\n\nRecibirás un email de confirmación pronto.');
+          formSuscripcion.reset();
+          
+          // En producción, descomentar para envío real:
+          formSuscripcion.submit();
+        });
+      }
+      
+      // ===== TRACKING DE BOTONES =====
+      const btnMediaKit = document.querySelector('.btn-anunciar.primary');
+      const btnContacto = document.querySelector('.btn-anunciar.secondary');
+      
+      if (btnMediaKit) {
+        btnMediaKit.addEventListener('click', function(e) {
+          console.log('Media Kit descargado');
+          // Google Analytics tracking:
+          // gtag('event', 'download', { 'event_category': 'Media Kit' });
+        });
+      }
+      
+      if (btnContacto) {
+        btnContacto.addEventListener('click', function(e) {
+          console.log('Contacto comercial iniciado');
+          // Google Analytics tracking:
+          // gtag('event', 'click', { 'event_category': 'Contacto Comercial' });
+        });
+      }
+      
+      // ===== SMOOTH SCROLL (opcional) =====
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

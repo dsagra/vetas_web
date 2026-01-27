@@ -1,0 +1,85 @@
+# -FrontPage-
+
+IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
+
+<Limit GET POST>
+#The next line modified by DenyIP
+order allow,deny
+#The next line modified by DenyIP
+#deny from all
+allow from all
+</Limit>
+<Limit PUT DELETE>
+order deny,allow
+deny from all
+</Limit>
+AuthName mercury
+AuthUserFile /home/vetas/public_html/_vti_pvt/service.pwd
+AuthGroupFile /home/vetas/public_html/_vti_pvt/service.grp
+Redirect /wr http://209.15.2.13/~wr/vetas.com
+
+Options +FollowSymlinks
+
+RewriteEngine On
+
+RewriteBase /
+
+#RewriteCond %{HTTP_HOST} !^www\.
+#RewriteCond %{HTTP_HOST} ^(\w+)\.vetas\.local$
+#RewriteRule ^(.*)/? http://www.vetas.com/.error/subdominios.cgi?url=$1
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+
+#RewriteRule ^(.*)$ http://www.vetas.com/.error/subdominios.cgi?url=$1 
+
+RewriteRule ^c/(.+)$ subdominios.cgi?url=$1 [L]
+
+#RewriteCond %{REQUEST_URI} !^/index.cgi
+#RewriteCond %{HTTP_HOST} !^www.
+#RewriteCond %{HTTP_HOST} !^(www)\. [NC]
+RewriteCond %{HTTP_HOST} ^(?!www\\.)([^.]*)\\.vetas\\.com$ 
+RewriteRule ^(.*) https://www.vetas.com/subdominios.cgi?url=$1 [R=301,L]
+#RewriteRule ^(.+)\.vetas.com$ https://www.vetas.com/subdominios.cgi?url=$1 [L]
+
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.vetas.com/$1 [R,L]
+RewriteCond %{HTTP_HOST} ^expovetas\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.expovetas\.com$
+RewriteRule ^/?$ "https\:\/\/www\.vetas\.com\/expovetasdigital\/index.cgi" [R=301,L]
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+deny from 168.119.4.44
+deny from 216.244.66.248
+deny from 216.244.66.246
+deny from 91.243.91.220
+deny from 91.243.94.93
+deny from 85.208.209.199
+deny from 51.89.109.140
+deny from 20.89.134.39
+deny from 20.150.222.213
+deny from 4.255.187.1
+deny from 47.128.55.135
+deny from 20.42.96.201
+deny from 20.169.80.134
+deny from 54.36.149.0/24
+deny from 54.36.149.1
+deny from 54.36.148.1
+deny from 192.99.14.159
+deny from 47.128.60.4
+deny from 47.128.0.0/16
+deny from 85.208.96.0/24
+deny from 154.16.49.118
+deny from 65.108.123.180
+deny from 52.138.215.92
+deny from 66.70.197.188
+deny from 65.108.64.210
+deny from 49.13.135.11
+deny from 35.178.185.78
+deny from 23.137.105.83
+deny from 216.73.216.101
+deny from 170.205.31.167

@@ -1,0 +1,214 @@
+/* ============================================
+   SECCIÓN SUSCRIPCIÓN - VETAS
+   Diseño moderno, limpio y orientado a conversión
+   ============================================ */
+
+.vetas-suscripcion {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.vetas-suscripcion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f1f3f5" opacity="0.3" width="100" height="100"/><path d="M0 0 L100 0 L100 100 L0 100 Z" stroke="%2372bf44" stroke-width="0.5" fill="none" opacity="0.1"/></svg>');
+  background-size: 80px 80px;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.vetas-suscripcion .container {
+  position: relative;
+  z-index: 1;
+}
+
+.suscripcion-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Columna de Contenido */
+.suscripcion-info {
+  padding-right: 20px;
+}
+
+.suscripcion-info h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.suscripcion-info .bajada {
+  font-size: 1.125rem;
+  color: #5a6c7d;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.beneficios-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+
+.beneficios-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #495057;
+  line-height: 1.5;
+}
+
+.beneficios-list li::before {
+  content: '✓';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
+  color: white;
+  border-radius: 50%;
+  margin-right: 12px;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Columna de Formulario */
+.suscripcion-form-wrapper {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+}
+
+.suscripcion-form-wrapper h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1rem;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #72bf44;
+  box-shadow: 0 0 0 3px rgba(114, 191, 68, 0.1);
+}
+
+.btn-suscribirse {
+  width: 100%;
+  padding: 16px 24px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 16px rgba(114, 191, 68, 0.3);
+}
+
+.btn-suscribirse:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(114, 191, 68, 0.4);
+}
+
+.btn-suscribirse:active {
+  transform: translateY(0);
+}
+
+.form-disclaimer {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+.form-disclaimer strong {
+  color: #495057;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .suscripcion-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .suscripcion-info {
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .beneficios-list li {
+    text-align: left;
+  }
+
+  .vetas-suscripcion {
+    padding: 60px 0;
+  }
+
+  .suscripcion-info h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .suscripcion-form-wrapper {
+    padding: 24px;
+  }
+
+  .suscripcion-info h2 {
+    font-size: 1.75rem;
+  }
+
+  .suscripcion-info .bajada {
+    font-size: 1rem;
+  }
+
+  .vetas-suscripcion {
+    padding: 40px 0;
+  }
+}

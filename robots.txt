@@ -1,0 +1,28 @@
+# robots.txt para VETAS.com
+# Generado: 2026-01-24
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.vetas.com/sitemap.xml
+
+# Bloquear directorios privados o de backup
+Disallow: /cgi-bin/
+Disallow: /backup/
+Disallow: /tmp/
+Disallow: /admin/
+
+# Permitir motores de búsqueda principales
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Crawl-delay para bots agresivos
+User-agent: *
+Crawl-delay: 1

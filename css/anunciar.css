@@ -1,0 +1,248 @@
+/* ============================================
+   SECCIÓN ANUNCIÁ EN VETAS
+   Diseño premium con enfoque B2B
+   ============================================ */
+
+.vetas-anunciar {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.vetas-anunciar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(114, 191, 68, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(114, 191, 68, 0.08) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.vetas-anunciar .container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+}
+
+.anunciar-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 48px;
+}
+
+.anunciar-header h2 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.anunciar-header .bajada {
+  font-size: 1.125rem;
+  color: #e9ecef;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Grid de Beneficios */
+.beneficios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin: 48px 0;
+}
+
+.beneficio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.beneficio-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(114, 191, 68, 0.3);
+  transform: translateY(-4px);
+}
+
+.beneficio-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 24px;
+}
+
+.beneficio-item h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.beneficio-item p {
+  font-size: 0.9375rem;
+  color: #cbd5e0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* CTAs Section */
+.anunciar-ctas {
+  text-align: center;
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ctas-wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.btn-anunciar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 240px;
+}
+
+.btn-anunciar.primary {
+  background: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(114, 191, 68, 0.3);
+}
+
+.btn-anunciar.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(114, 191, 68, 0.4);
+}
+
+.btn-anunciar.secondary {
+  background: transparent;
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-anunciar.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-anunciar i {
+  margin-right: 8px;
+  font-size: 1.125rem;
+}
+
+/* Texto de Autoridad */
+.anunciar-autoridad {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1rem;
+  color: #cbd5e0;
+  margin-top: 32px;
+}
+
+.anunciar-autoridad::before,
+.anunciar-autoridad::after {
+  content: '';
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(114, 191, 68, 0.5), transparent);
+}
+
+.anunciar-autoridad span {
+  font-weight: 600;
+  color: #72bf44;
+}
+
+/* Badge de años */
+.badge-anos {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 16px rgba(114, 191, 68, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .anunciar-header h2 {
+    font-size: 2.25rem;
+  }
+
+  .beneficios-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .vetas-anunciar {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .anunciar-header h2 {
+    font-size: 1.875rem;
+  }
+
+  .anunciar-header .bajada {
+    font-size: 1rem;
+  }
+
+  .vetas-anunciar {
+    padding: 50px 0;
+  }
+
+  .ctas-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-anunciar {
+    width: 100%;
+  }
+
+  .anunciar-autoridad::before,
+  .anunciar-autoridad::after {
+    width: 40px;
+  }
+}

@@ -1,0 +1,274 @@
+<!-- ============================================
+     SECCIÓN 1: SUSCRIPCIÓN A VETAS
+     Componente HTML listo para integración
+     ============================================ -->
+
+<style>
+  /* Sección de Suscripción */
+  .vetas-suscripcion {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 4rem 0;
+    margin: 3rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vetas-suscripcion::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -5%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(114, 191, 68, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .vetas-suscripcion .container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .suscripcion-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Columna de Información */
+  .suscripcion-info h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .suscripcion-info .bajada {
+    font-size: 1.125rem;
+    color: #5a6c7d;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .beneficios-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .beneficios-list li {
+    padding: 0.75rem 0;
+    padding-left: 2rem;
+    position: relative;
+    color: #2c3e50;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .beneficios-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: #72bf44;
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  /* Formulario */
+  .suscripcion-form-wrapper {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  }
+
+  .suscripcion-form-wrapper h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: #72bf44;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(114, 191, 68, 0.1);
+  }
+
+  .btn-suscribir {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  .btn-suscribir:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(114, 191, 68, 0.4);
+  }
+
+  .btn-suscribir:active {
+    transform: translateY(0);
+  }
+
+  .form-footer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #7f8c8d;
+  }
+
+  .recaptcha-wrapper {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .vetas-suscripcion {
+      padding: 3rem 0;
+    }
+
+    .suscripcion-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .suscripcion-info h2 {
+      font-size: 2rem;
+    }
+
+    .suscripcion-form-wrapper {
+      padding: 2rem 1.5rem;
+    }
+
+    .beneficios-list li {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .suscripcion-info h2 {
+      font-size: 1.75rem;
+    }
+
+    .suscripcion-form-wrapper {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<section class="vetas-suscripcion">
+  <div class="container">
+    <div class="suscripcion-content">
+      
+      <!-- Columna de Información -->
+      <div class="suscripcion-info">
+        <h2>Recib&iacute; VETAS en tu mail</h2>
+        <p class="bajada">
+          La revista l&iacute;der de la industria de la madera y el mueble en Latinoam&eacute;rica, 
+          ahora en formato digital.
+        </p>
+        
+        <ul class="beneficios-list">
+          <li>Ediciones digitales completas</li>
+          <li>Notas t&eacute;cnicas y tendencias del sector</li>
+          <li>Cobertura de ferias y eventos internacionales</li>
+          <li>Contenido exclusivo para suscriptores</li>
+          <li>Novedades directo a tu mail</li>
+        </ul>
+      </div>
+      
+      <!-- Columna de Formulario -->
+      <div class="suscripcion-form-wrapper">
+        <h3>Suscribite gratis</h3>
+        
+        <form id="formSuscripcion" action="suscripcion.cgi" method="POST">
+          <input type="hidden" name="idioma" value="es">
+          
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="tu@email.com" 
+              required
+              autocomplete="email"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="nombre">Nombre (opcional)</label>
+            <input 
+              type="text" 
+              id="nombre" 
+              name="nombre" 
+              placeholder="Tu nombre"
+              autocomplete="name"
+            >
+          </div>
+
+          <!-- reCAPTCHA - TEMPORALMENTE DESHABILITADO PARA TESTING -->
+          <!-- Descomentar cuando esté configurado:
+          <div class="recaptcha-wrapper">
+            <div class="g-recaptcha" data-sitekey="6LcI1FIsAAAAAL4Q92H_tU_NbIuX98WzbEIM-0gJ"></div>
+          </div>
+          -->
+          
+          <button type="submit" class="btn-suscribir">
+            Suscribirme a VETAS
+          </button>
+          
+          <p class="form-footer">
+            <strong>Gratuito</strong> &middot; Sin spam &middot; Pod&eacute;s darte de baja cuando quieras
+          </p>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Script de reCAPTCHA - TEMPORALMENTE DESHABILITADO -->
+<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+      
+
+</script>

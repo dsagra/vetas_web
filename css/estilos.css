@@ -1,0 +1,158 @@
+body { 
+  padding-top: 100px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #f8f9fa;
+  color: #2c3e50;
+}
+
+.menucolor {
+  background: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.grisclaro {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.tales {
+  width: 100%;
+}
+
+.imgaviso{
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+}
+
+.imgaviso:hover {
+  transform: scale(1.02);
+}
+
+.titvetas{
+  text-decoration: none;
+  font-size: 12px;
+  color: #495057;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.titvetas:hover{
+  text-decoration: none;
+  font-size: 12px;
+  color: #72bf44;
+  padding-left: 4px;
+}
+
+.titnoticias{
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.titnoticias:hover{
+  text-decoration: none;
+  color: #72bf44;
+}
+
+.titferias{
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+.titferias:hover{
+  text-decoration: none;
+  font-size: 14px;
+  color: #72bf44;
+}
+
+.titguia{
+  text-decoration: none;
+  color: white;
+  transition: opacity 0.3s ease;
+}
+.titguia:hover{
+  text-decoration: none;
+  color: white;
+  opacity: 0.9;
+}
+
+.feriasfecha{
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.color1 {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: black;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+aside {
+  background: linear-gradient(135deg, #c0392b 0%, #a02919 100%);
+  color: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.portfolio-item {
+  margin-bottom: 30px;
+  transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover {
+  transform: translateY(-4px);
+}
+
+.pagination {
+  margin-bottom: 30px;
+}
+
+.bg-negro {
+  background-color: black;
+}
+
+.bg-gray {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 8px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Link improvements */
+a {
+  transition: all 0.3s ease;
+}
+
+/* Card hover effects */
+.card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Image lazy loading placeholder */
+img {
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+}
+
+.bg-insumos {
+    background-color: white;
+}
+
+.text-guia {
+    color: yellow;
+}
+
+.text-wrap{
+  white-space: normal !important;
+}

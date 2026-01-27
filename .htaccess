@@ -1,0 +1,53 @@
+# -FrontPage-
+
+IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
+
+<Limit GET POST>
+#The next line modified by DenyIP
+order allow,deny
+#The next line modified by DenyIP
+#deny from all
+allow from all
+</Limit>
+<Limit PUT DELETE>
+order deny,allow
+deny from all
+</Limit>
+AuthName mercury
+AuthUserFile /home/vetas/public_html/_vti_pvt/service.pwd
+AuthGroupFile /home/vetas/public_html/_vti_pvt/service.grp
+Redirect /wr http://209.15.2.13/~wr/vetas.com
+
+Options +FollowSymlinks
+
+RewriteEngine On
+
+RewriteBase /
+
+# Regla para manejar subdominios (ej: alpe.vetas.com -> subdominios.cgi?url=alpe)
+# Captura cualquier subdominio que NO sea www
+RewriteCond %{HTTP_HOST} ^(?!www\.)([^.]+)\.vetas\.com$ [NC]
+RewriteRule ^(.*)$ https://www.vetas.com/subdominios.cgi?url=%1 [R=301,L,QSA]
+
+# Regla para URLs con formato /c/subdominio
+RewriteRule ^c/(.+)$ subdominios.cgi?url=$1 [L,QSA]
+
+# Forzar HTTPS
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.vetas.com/$1 [R=301,L]
+
+# Redirección de expovetas.com
+RewriteCond %{HTTP_HOST} ^expovetas\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.expovetas\.com$
+RewriteRule ^/?$ "https://www.vetas.com/expovetasdigital/index.cgi" [R=301,L]
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+deny from 168.119.4.44
+deny from 216.244.66.248
+deny from 216.244.66.246
+deny from 91.243.91.220
+deny from 91.243.94.93

@@ -1,0 +1,111 @@
+<!-- ============================================
+     SECCIÓN 2: ANUNCIÁ EN VETAS
+     Componente HTML listo para integración
+     ============================================ -->
+
+<!-- Link al CSS (incluir en el <head>) -->
+<!-- <link rel="stylesheet" href="/css/anunciar.css"> -->
+<!-- Font Awesome para iconos (si no está incluido) -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+
+<section class="vetas-anunciar">
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="anunciar-header">
+      <h2>Conectá tu marca con el público correcto</h2>
+      <p class="bajada">
+        Desde 1980, VETAS acompaña a los profesionales, empresas y tomadores de decisión 
+        de la industria de la madera y el mueble en toda Latinoamérica.
+      </p>
+    </div>
+    
+    <!-- Grid de Beneficios -->
+    <div class="beneficios-grid">
+      
+      <div class="beneficio-item">
+        <div class="beneficio-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h4>Audiencia especializada</h4>
+        <p>Conectá con profesionales y decisores del sector maderero y del mueble</p>
+      </div>
+      
+      <div class="beneficio-item">
+        <div class="beneficio-icon">
+          <i class="fas fa-globe-americas"></i>
+        </div>
+        <h4>Presencia regional</h4>
+        <p>Alcance en toda Latinoamérica con foco en los mercados más importantes</p>
+      </div>
+      
+      <div class="beneficio-item">
+        <div class="beneficio-icon">
+          <i class="fas fa-palette"></i>
+        </div>
+        <h4>Múltiples formatos</h4>
+        <p>Opciones gráficas, digitales y editoriales adaptadas a tus objetivos</p>
+      </div>
+      
+      <div class="beneficio-item">
+        <div class="beneficio-icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <h4>Ediciones especiales</h4>
+        <p>Cobertura exclusiva de ferias y eventos clave de la industria</p>
+      </div>
+      
+      <div class="beneficio-item">
+        <div class="beneficio-icon">
+          <i class="fas fa-award"></i>
+        </div>
+        <h4>Marca de valor</h4>
+        <p>Asociá tu empresa con contenido técnico de alta calidad y relevancia</p>
+      </div>
+      
+    </div>
+    
+    <!-- CTAs -->
+    <div class="anunciar-ctas">
+      <div class="ctas-wrapper">
+        <a href="/media-kit.pdf" download class="btn-anunciar primary">
+          <i class="fas fa-download"></i>
+          Descargar Media Kit
+        </a>
+        <a href="/contacto.cgi" class="btn-anunciar secondary">
+          <i class="fas fa-envelope"></i>
+          Contactar al equipo comercial
+        </a>
+      </div>
+      
+      <div class="anunciar-autoridad">
+        <span>Más de 40 años acompañando a la industria</span>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- JavaScript opcional para tracking -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const btnMediaKit = document.querySelector('.btn-anunciar.primary');
+  const btnContacto = document.querySelector('.btn-anunciar.secondary');
+  
+  if (btnMediaKit) {
+    btnMediaKit.addEventListener('click', function(e) {
+      // Tracking de descarga de Media Kit
+      console.log('Media Kit descargado');
+      // gtag('event', 'download', { 'event_category': 'Media Kit' });
+    });
+  }
+  
+  if (btnContacto) {
+    btnContacto.addEventListener('click', function(e) {
+      // Tracking de contacto comercial
+      console.log('Contacto comercial iniciado');
+      // gtag('event', 'click', { 'event_category': 'Contacto Comercial' });
+    });
+  }
+});
+</script>

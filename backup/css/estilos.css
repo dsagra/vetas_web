@@ -1,0 +1,113 @@
+body { padding-top: 100px; }
+
+.menucolor {background-color: #72bf44;}
+.grisclaro {background-color: lightgray;}
+
+.tales {
+  width: 100%;
+}
+
+.imgaviso{
+	margin-bottom: 10px;
+}
+
+.titvetas{
+	text-decoration: none;
+	font-size: 12px;
+}
+.titvetas:hover{
+	text-decoration: none;
+	font-size: 12px;
+}
+
+.titnoticias{
+	text-decoration: none;
+	
+}
+.titnoticias:hover{
+	text-decoration: none;
+	
+}
+
+.titferias{
+	text-decoration: none;
+	font-size: 14px;
+}
+.titferias:hover{
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.titguia{
+	text-decoration: none;
+	
+	color:white;
+}
+.titguia:hover{
+	text-decoration: none;
+	
+	color:white;
+}
+
+
+.feriasfecha{
+	font-size: 14px;
+}
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.color1 {
+	background: lightgray;
+	color: black;
+}
+aside {
+	background:#c0392b;
+	color:#fff;
+}
+
+footer {
+  background: #061D25;
+  padding: 10px 0;
+  text-align: center;
+}
+footer a {
+  color: #70726F;
+  font-size: 20px;
+  padding: 10px;
+  border-right: 1px solid #70726F;
+  transition: all .5s ease;
+}
+footer a:first-child {
+  border-left: 1px solid #70726F;
+}
+footer a:hover {
+  color: white;
+}
+
+.portfolio-item {
+  margin-bottom: 30px;
+}
+
+.pagination {
+  margin-bottom: 30px;
+}
+
+.bg-negro {
+    background-color: black;
+}
+.bg-gray {
+    background-color: lightgray;
+}
+
+.bg-insumos {
+    background-color: white;
+}
+
+.text-guia {
+    color: yellow;
+}
+
+.text-wrap{
+  white-space: normal !important;
+}
