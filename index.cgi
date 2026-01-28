@@ -53,6 +53,7 @@ if ($idioma eq "es")
   $ivideo="TITULO_ES";
   $guia="Guia Maderera";
   $fertxt="Ferias y Eventos";
+  $vermasferias="Ver m&aacute;s ferias";
     $verempresa="Ver empresa";
 $tm="TITULO";
 $cm="COPETE";
@@ -73,6 +74,7 @@ if ($idioma eq "en")
   $leer="Read news";
   $ivideo="TITULO_EN";
   $fertxt="Fairs and Exhibitions";
+  $vermasferias="View more fairs";
    $verempresa="View company";
 $tm="TITULO_EN";
 $cm="COPETE_EN";
@@ -93,6 +95,7 @@ if ($idioma eq "br")
   $leer="Ler not&iacute;cia";
   $ivideo="TITULO_BR";
   $fertxt="Feiras";
+  $vermasferias="Ver mais feiras";
   $verempresa="Ver empresa";
 $tm="TITULO_BR";
 $cm="COPETE_BR";
@@ -736,6 +739,9 @@ print qq(
 
   }
 
+print qq(
+              <a href="ferias.cgi?i=$idioma" class="btn-modern mt-3 d-block text-center">$vermasferias</a>
+          );
 
     
  print <<EOFHTML;    
@@ -958,7 +964,6 @@ elsif ($idioma eq "br") {
 }
 
 print <<EOFHTML;
-
 </main>
 
 EOFHTML
