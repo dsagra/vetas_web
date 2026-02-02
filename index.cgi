@@ -427,6 +427,117 @@ print <<EOFHTML;
     transform: scale(1.05) rotate(2deg);
     box-shadow: var(--shadow-lg);
   }
+
+  /* Carousel CSS */
+  .scrolling-wrapper {
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    gap: 20px;
+    scrollbar-width: thin;
+  }
+  
+  .scrolling-wrapper::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .scrolling-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 4px;
+  }
+  
+  .scrolling-wrapper::-webkit-scrollbar-thumb {
+    background: #ccc; 
+    border-radius: 4px;
+  }
+  
+  .scrolling-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #999; 
+  }
+
+  .product-card {
+    flex: 0 0 auto;
+    width: 260px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+  }
+
+  .product-card .card-body {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-card h5 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--vetas-dark);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 2.6em; /* fixed height for 2 lines */
+  }
+
+  .product-card .company-name {
+    font-size: 0.8rem;
+    color: var(--vetas-accent);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .product-card .btn-view {
+    margin-top: auto;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    background: var(--vetas-light);
+    color: var(--vetas-dark);
+    border: none;
+    border-radius: 50px;
+    width: 100%;
+    text-align: center;
+    transition: var(--transition);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .product-card .btn-view:hover {
+    background: var(--vetas-primary);
+    color: white;
+  }
+
 </style>
 
   <main role="main">
@@ -597,6 +708,95 @@ print <<EOFHTML;
         </div>
     </div>
     </div>
+EOFHTML
+
+# FEATURED PRODUCTS CAROUSEL START
+my $featured_title = "Productos Destacados";
+$featured_title = "Featured Products" if ($idioma eq "en");
+$featured_title = "Produtos em Destaque" if ($idioma eq "br");
+
+my $view_product = "Ver producto";
+$view_product = "View product" if ($idioma eq "en");
+$view_product = "Ver produto" if ($idioma eq "br");
+
+my @carousel_products = ();
+
+# Fetch active clients
+my $sth_clients = $dbh->prepare("SELECT ID, EMPRESA FROM USUARIOS WHERE ACTIVO=1 OR ACTIVO_REVISTA!=0 OR ACTIVO_GUIA!=0");
+$sth_clients->execute();
+
+while (my $cli = $sth_clients->fetchrow_hashref) {
+    # Get 1 random photo for this client
+    # Note: RUBRO join is just for extra info if needed, mostly we need the image and description
+    my $sth_p = $dbh->prepare("SELECT F.ID, F.ARCHIVO, F.DESCRIPT, F.DESCRIPT_EN, F.DESCRIPT_BR FROM FOTOS AS F WHERE F.CLIENTE=? AND (F.FECHAVENCE='' or F.FECHAVENCE > now()) ORDER BY RAND() LIMIT 1");
+    $sth_p->execute($cli->{ID});
+    
+    if (my $prod = $sth_p->fetchrow_hashref) {
+        $prod->{EMPRESA_NAME} = $cli->{EMPRESA};
+        $prod->{CLIENTE_ID} = $cli->{ID};
+        push @carousel_products, $prod;
+    }
+}
+
+# Shuffle the results
+for (my $i = @carousel_products; --$i; ) {
+    my $j = int rand($i+1);
+    next if $i == $j;
+    @carousel_products[$i,$j] = @carousel_products[$j,$i];
+}
+
+if (@carousel_products > 0) {
+    print qq(
+    <div class="container container-spacing">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="section-title">$featured_title</h3>
+            </div>
+        </div>
+        <div class="scrolling-wrapper">
+    );
+
+    foreach my $prod (@carousel_products) {
+        my $foto = $prod->{ARCHIVO};
+        $foto = "$prod->{ID}.jpg" if ($foto eq "");
+        
+        my $img_url = "https://www.vetas.com/clientes/fotos/$foto";
+        
+        my $p_title = $prod->{DESCRIPT};
+        if ($idioma eq "en" && $prod->{DESCRIPT_EN}) { $p_title = $prod->{DESCRIPT_EN}; }
+        if ($idioma eq "br" && $prod->{DESCRIPT_BR}) { $p_title = $prod->{DESCRIPT_BR}; }
+        $p_title = "Producto" if ($p_title eq "");
+        
+        # Escape quotes for HTML
+        $p_title =~ s/"/&quot;/g;
+        my $empresa_safe = $prod->{EMPRESA_NAME};
+        $empresa_safe =~ s/"/&quot;/g;
+        
+        # Link logic
+        my $prod_link = "empresa.cgi?cliente=$prod->{CLIENTE_ID}&i=$idioma";
+
+        print qq(
+            <div class="product-card">
+                 <a href="$prod_link">
+                    <img src="$img_url" alt="$p_title" loading="lazy">
+                 </a>
+                <div class="card-body">
+                    <div class="company-name" title="$empresa_safe">$prod->{EMPRESA_NAME}</div>
+                    <h5 title="$p_title">$p_title</h5>
+                    <a href="$prod_link" class="btn-view">$view_product</a>
+                </div>
+            </div>
+        );
+    }
+
+    print qq(
+        </div>
+    </div>
+    );
+}
+# FEATURED PRODUCTS CAROUSEL END
+
+print <<EOFHTML;
 
 <div class="container container-spacing">
   <div class="row">

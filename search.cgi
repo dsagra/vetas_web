@@ -209,33 +209,45 @@ if ($idioma eq "es") {
 
 print <<EOFHTML;
 <style>     
-.card-block {max-height:300px;overflow:auto;}
+  :root {
+    --primary-color: #72bf44;
+    --primary-dark: #5fa835;
+    --primary-gradient: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
+    --card-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    --card-shadow-hover: 0 15px 30px rgba(114, 191, 68, 0.15);
+    --text-dark: #2c3e50;
+    --text-muted: #6c757d;
+  }
 
-.search-form-modern {
-    margin: 2rem 0;
+  /* Search Form Styles */
+  .search-form-modern {
+    margin: 3rem 0;
   }
 
   .search-input-modern {
     border: 2px solid #e9ecef;
     border-right: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
     border-radius: 50px 0 0 50px !important;
     transition: all 0.3s ease;
+    background: #fdfdfd;
   }
 
   .search-input-modern:focus {
-    border-color: #72bf44;
-    box-shadow: 0 0 0 0.2rem rgba(114, 191, 68, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(114, 191, 68, 0.1);
+    background: #fff;
     outline: none;
   }
 
   .btn-search-modern {
-    background: linear-gradient(135deg, #72bf44 0%, #5fa835 100%);
-    border: 2px solid #72bf44;
+    background: var(--primary-gradient);
+    border: none;
     color: white;
-    padding: 0.75rem 2rem;
+    padding: 0 2.5rem;
     font-weight: 600;
+    font-size: 1.1rem;
     border-radius: 0 50px 50px 0 !important;
     transition: all 0.3s ease;
     display: flex;
@@ -244,128 +256,298 @@ print <<EOFHTML;
   }
 
   .btn-search-modern:hover {
-    background: linear-gradient(135deg, #5fa835 0%, #4d8c2a 100%);
-    border-color: #5fa835;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(114, 191, 68, 0.4);
+    box-shadow: 0 8px 20px rgba(114, 191, 68, 0.3);
   }
 
-  .btn-search-modern svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .no-results-container {
-    text-align: left;
-    padding: 3rem 2.5rem;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 16px;
-    margin: 2rem 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    border: 1px solid #dee2e6;
-  }
-
-  .no-results-icon {
-    color: #72bf44;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .no-results-icon svg {
-    width: 64px;
-    height: 64px;
-  }
-
-  .no-results-title {
-    font-size: 1.8rem;
-    color: #343a40;
-    margin-bottom: 1rem;
+  /* Result Section Headers */
+  .section-title {
+    font-size: 1.75rem;
     font-weight: 700;
-    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary-color);
+    margin-top: 8px;
+    border-radius: 2px;
   }
 
-  .no-results-message {
-    color: #495057;
-    font-size: 1.15rem;
-    margin-bottom: 2rem;
-    text-align: center;
+  .section-header-container {
+      margin-top: 4rem;
+      margin-bottom: 2rem;
   }
 
-  .suggestions-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-width: 600px;
-    margin: 0 auto;
+  /* Product Cards */
+  .result-card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
-  .suggestions-list li {
-    padding: 0.75rem 1rem;
+  .result-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .result-card-img-wrapper {
+    position: relative;
+    padding-top: 66%; /* 3:2 Aspect Ratio */
+    overflow: hidden;
+    background: #f8f9fa;
+  }
+
+  .result-card-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Maintain logo aspect correctly */
+    padding: 1rem;
+    transition: transform 0.5s ease;
+  }
+  
+  .result-card:hover .result-card-img {
+    transform: scale(1.05);
+  }
+
+  .result-card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .result-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
     margin-bottom: 0.75rem;
-    background: white;
-    border-left: 4px solid #72bf44;
-    border-radius: 8px;
-    color: #495057;
-    font-size: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
+    line-height: 1.4;
+    text-decoration: none !important;
+  }
+  
+  .result-card-title a {
+      color: inherit;
+      text-decoration: none;
+  }
+  
+  .result-card-title a:hover {
+      color: var(--primary-color);
   }
 
-  .suggestions-list li:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 8px rgba(114, 191, 68, 0.2);
+  .result-card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  
+  .result-card-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+  
+  .company-logo-small {
+      height: 30px;
+      width: auto;
+      max-width: 80px;
+      object-fit: contain;
   }
 
-  .suggestions-list li strong {
-    color: #343a40;
+  .btn-view-more {
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: gap 0.2s ease;
+  }
+  
+  .btn-view-more:hover {
+      gap: 8px;
+      text-decoration: none;
+      color: var(--primary-dark);
   }
 
-  .suggestions-list li a {
-    color: #72bf44;
-    text-decoration: none;
-    font-weight: 600;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s ease;
+  /* News Cards */
+  .news-card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      height: 100%;
+      background: white;
+  }
+  
+  .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-shadow-hover);
+  }
+  
+  .news-img-wrapper {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+  }
+  
+  .news-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+  }
+  
+  .news-card:hover .news-img {
+      transform: scale(1.05);
+  }
+  
+  .news-card-body {
+      padding: 1.25rem;
+  }
+  
+  .news-date {
+      font-size: 0.8rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+      display: block;
+      font-weight: 600;
+  }
+  
+  .news-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 0.75rem;
+  }
+  
+  .news-title a {
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+  }
+  
+  .news-title a:hover {
+      color: var(--primary-color);
   }
 
-  .suggestions-list li a:hover {
-    border-bottom-color: #72bf44;
+  /* Magazine Cards */
+  .magazine-card {
+      border: none;
+      background: transparent;
+      transition: transform 0.3s ease;
+  }
+  
+  .magazine-card:hover {
+      transform: translateY(-5px);
+  }
+  
+  .magazine-cover-wrapper {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      margin-bottom: 1rem;
+      position: relative;
+      aspect-ratio: 1/1.4; /* Magazine ratio */
+  }
+  
+  .magazine-cover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter 0.3s;
+  }
+  
+  .magazine-card:hover .magazine-cover {
+      filter: brightness(1.05);
+  }
+  
+  .magazine-info h5 a {
+      color: var(--text-dark);
+      font-weight: 700;
+      text-decoration: none;
+  }
+  
+  .magazine-info h5 a:hover {
+      color: var(--primary-color);
+  }
+  
+  .magazine-number {
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
   }
 
-  .search-query {
-    color: #72bf44;
-    font-weight: 600;
+  /* No results */
+  .no-results-container {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    max-width: 800px;
+    margin: 2rem auto;
   }
 
+  /* Media Queries */
   @media (max-width: 768px) {
     .search-input-modern {
-      font-size: 0.9rem;
-      padding: 0.625rem 1rem;
+      font-size: 1rem;
+      padding: 0.8rem 1rem;
     }
 
     .btn-search-modern {
-      padding: 0.625rem 1.25rem;
+      padding: 0.8rem 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
     }
   }
 </style>
-<main>
+
+<main style="background-color: #fcfcfc; min-height: 80vh; padding-bottom: 4rem;">
 <div class="container">
   <!-- Search Section -->
-  <div class="row justify-content-center mt-4">
-    <div class="col-md-8">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
       <form action="search.cgi" method="get" class="search-form-modern">
         <input type="hidden" name="i" value="$idioma">
-        <div class="input-group input-group-lg">
+        <div class="input-group">
           <input type="text" name="producto" class="form-control search-input-modern" placeholder="$search_placeholder" value="$formulario{producto}" aria-label="$search_button" required>
           <div class="input-group-append">
             <button class="btn btn-search-modern" type="submit">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
               </svg>
-              $search_button
+              <span class="d-none d-sm-inline">$search_button</span>
             </button>
           </div>
         </div>
@@ -443,214 +625,167 @@ print "<!-- TOTAL resultados en BD: $total_results -->\n";
 
 # NO mostrar el encabezado todavía, lo haremos después de verificar si hay algo que mostrar
 
-print <<EOFHTML;
-<div class="row">
-EOFHTML
+# NO mostrar el encabezado todavía, lo haremos después de verificar si hay algo que mostrar
 
 # Contador de items realmente mostrados en pantalla
 my $items_displayed = 0;
-my $header_shown = 0;
 
-$a="(";
-$c=0;
-foreach my $n (@palabras) {
-  $a=$a." or " if ($c==1);
- $a=$a."R.$rub like '%$n%' ";
- $c=1;
-}
-$a=$a.")";
+print qq(<div class="results-wrapper pb-5">);
 
-# Mostrar resultados de productos
-foreach my $cli (@resultados_productos)
-    {
-      # Mostrar encabezado solo la primera vez que hay un resultado
-      if ($header_shown == 0) {
-          print qq(</div><div class="row justify-content-center"><div class="col-md-8"><h4 class="mb-4">$results_found: <span class="search-query">"$formulario{producto}"</span></h4></div></div><div class="row">);
-          $header_shown = 1;
-      }
-      
-      $items_displayed++;
-      print qq(
-           <div class="col-md-3">
-              <div class="card mb-3  shadow-sm">
-
-);
-$tama="col-md-3";
-
-
-    if ($cli->{fotoarchivo} eq "")
-      {
+# --- PRODUCTS SECTION ---
+if (scalar(@resultados_productos) > 0) {
     print qq(
-
-<a href="empresa.cgi?cliente=$cli->{ID}&i=$idioma&c=BUSCADOR_CLICKS&utm_source=web&utm_medium=buscador&utm_campaign=$cli->{EMPRESA}">  <img class="card-img-top" src="https://www.vetas.com/clientes/fotos/$cli->{fot}.jpg" alt="Card image cap"></a>
-
-  );
-  }
-else
-   {
-    print qq(
-
-<a href="empresa.cgi?cliente=$cli->{ID}&i=$idioma&c=BUSCADOR_CLICKS&utm_source=web&utm_medium=buscador&utm_campaign=$cli->{EMPRESA}">  <img class="card-img-top" src="https://www.vetas.com/clientes/fotos/$cli->{fotoarchivo}" alt="Card image cap"></a>
-
-  );
-  }
-
-
-
-  print qq(
-
-
-<div class="card-body  card-block">
-<a href="empresa.cgi?cliente=$cli->{ID}&i=$idioma&c=BUSCADOR_CLICKS&utm_source=web&utm_medium=buscador&utm_campaign=$cli->{EMPRESA}" onclick="gtag('event', 'clic', {'event_category': 'Click buscador', 'event_label': 'cliente=$cli->{ID}', 'value': '1'});"><b>$cli->{$rub}</b></a><br>
-) if ($cli->{SINDINAMICA}==0);
-
-print qq(
-
-
-<div class="card-body  card-block">
-<a target="_blank" href="https://$cli->{SITE}"><b>$cli->{EMPRESA}</b></a><br>
-) if ($cli->{SINDINAMICA}==1);
-
-if ($cli->{$fdesc})
-  {
-        my $string = $cli->{$fdesc};
-        my $str = substr($string,0,150);
-
-        print $str;
-	print "...."        if (length($string)>=150);
-
-  }
-#  else
-#    {
-#      if ($cli->{fotodesc} eq "")
-#        {
-#        my $string = $cli->{DESCRIPT};
-#        my $str = substr($string,0,150);
-#        print $str;
-#	print "...."        if (length($string)>=150);
-#        }
-#      else
-#        {
-#        my $string = $cli->{fotodesc};
-#        my $str = substr($string,0,150);
-#        print $str;
-#	print "...."        if (length($string)>=150);
-#
-#    }
-#    }
-
-print qq(
-<style>
- .card-img{
-width: 50%;
-}
-</style>
-<br>
-  <a href="empresa.cgi?cliente=$cli->{ID}&i=$idioma&c=BUSCADOR_CLICKS&utm_source=web&utm_medium=buscador&utm_campaign=$cli->{EMPRESA}"><img class="card-img center-block" src="https://www.vetas.com/clientes/logos/$cli->{idcliente}.jpg" alt="Card image cap"></a>
-  </div>
-
-
-
-
-</div>
-</div>
-);
-    }
-print qq(</div></div>
-<div class="container">
-<div class="row">
-  );
-
-# Mostrar resultados de noticias
-$cont=0;
-foreach my $noticias (@resultados_noticias)
-  {
-    # Mostrar encabezado solo la primera vez que hay un resultado
-    if ($header_shown == 0) {
-        print qq(</div><div class="row justify-content-center"><div class="col-md-8"><h4 class="mb-4">$results_found: <span class="search-query">"$formulario{producto}"</span></h4></div></div><div class="row">);
-        $header_shown = 1;
-    }
-   
-    $items_displayed++;
-    $cont++;
-    $stm3 = $dbh->prepare("select  * from NOTAS_FOTOS where ID_NOTAS=$noticias->{ID} and SLIDER=0");
-    $stm3->execute();
-        $fot="https://www.vetas.com/notas/fotos/$noticias->{'ID'}_1.jpg";
-        if ($foto=$stm3->fetchrow_hashref)
-          {
-          $fot="https://www.vetas.com/notas/fotos/$noticias->{ID}_$foto->{ID}_$foto->{FOTO}";
-          }
-          print qq(
-           <div class="col-md-3">
-              <div class="card mb-3  shadow-sm">
-<div class="card-header  text-muted">
-    Noticia
-  </div>
- <img class="card-img-top" src="$fot"  alt="Responsive image">
-<div class="card-body  card-block">
-             
-            <h4 >
-                <a  href="noticias.cgi?noticia=$noticias->{ID}&i=$idioma&s=1">$noticias->{TITULO}</a>
-              </h4>
-              <div class="text-muted">$noticias->{FECHANOT}</div>
-               <p>$noticias->{COPETE}</p>
-               
-          </div>
-          </div>
-          </div>
-          <p>
-        );
-        
-      }
-
-$a="(";
-$c=0;
-foreach my $n (@palabras) {
-  $a=$a." or " if ($c==1);
- $a=$a."$sp like '%$n%' ";
- $c=1;
-}
-$a=$a.")";
-
-# Mostrar resultados de revistas
-$cont=0;
-foreach my $noticias (@resultados_revistas)
-  {
-    # Mostrar encabezado solo la primera vez que hay un resultado
-    if ($header_shown == 0) {
-        print qq(</div><div class="row justify-content-center"><div class="col-md-8"><h4 class="mb-4">$results_found: <span class="search-query">"$formulario{producto}"</span></h4></div></div><div class="row">);
-        $header_shown = 1;
-    }
-   
-$items_displayed++;
-$stm2 = $dbh->prepare("select * from REVISTAS_CONFIG where REVISTA=$noticias->{REVISTA}");
-$stm2->execute();
-$revista=$stm2->fetchrow_hashref;
-
-        $fot="revista/$noticias->{'REVISTA'}/$noticias->{PAGINA}g.jpg";
-        
-          print qq(
-            <div class="col-md-4 mb-3">
-              <div class="card h-100 shadow-sm">
-                <div class="row no-gutters h-100">
-                  <div class="col-md-5">
-                    <img src="$fot" class="img-fluid h-100" style="object-fit: cover;" alt="Responsive image">
-                  </div>
-                  <div class="col-md-7">
-                    <div class="card-body">
-                      <h5>
-                        <a href="https://www.vetas.com/maga.cgi?revista=$noticias->{REVISTA}&i=$idioma&paginas=$revista->{PAGINAS}&pag=$noticias->{PAGINA}">$noticias->{$sp}</a>
-                      </h5>
-                      <div class="text-muted">$revivetas N&deg;$noticias->{REVISTA}</div>
-                      <p>$noticias->{$copete}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class="result-section mb-5">
+            <div class="section-header-container">
+                <h2 class="section-title">$results_found <span style="font-weight:400">"$formulario{producto}"</span></h2>
             </div>
-        );
+            <div class="row">
+    );
+
+    foreach my $cli (@resultados_productos) {
+        $items_displayed++;
         
-      }
+        # Image Logic
+        my $img_src = "";
+        if ($cli->{fotoarchivo} eq "") {
+            $img_src = "https://www.vetas.com/clientes/fotos/$cli->{fot}.jpg";
+        } else {
+            $img_src = "https://www.vetas.com/clientes/fotos/$cli->{fotoarchivo}";
+        }
+        
+        # Title/Link Logic
+        my $link_url = "";
+        my $title_text = "";
+        my $target = "";
+        
+        if ($cli->{SINDINAMICA}==0) {
+            $link_url = "empresa.cgi?cliente=$cli->{ID}&i=$idioma&c=BUSCADOR_CLICKS&utm_source=web&utm_medium=buscador&utm_campaign=$cli->{EMPRESA}";
+            $title_text = $cli->{$rub};
+        } else {
+            $link_url = "https://$cli->{SITE}";
+            $title_text = $cli->{EMPRESA};
+            $target = 'target="_blank"';
+        }
+        
+        # Description Logic
+        my $desc_text = "";
+        my $desc_source = $cli->{$fdesc} || $cli->{DESCRIPT} || ""; # Fallback to DESCRIPT if fdesc empty? (Legacy logic had commented out fallback)
+        if ($cli->{$fdesc}) { 
+             $desc_source = $cli->{$fdesc};
+        }
+        
+        if ($desc_source ne "") {
+            $desc_text = substr($desc_source,0,150);
+            $desc_text .= "..." if (length($desc_source)>=150);
+        }
+
+        print qq(
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="result-card">
+                <div class="result-card-img-wrapper">
+                    <a href="$link_url" $target>
+                        <img class="result-card-img" src="$img_src" alt="$cli->{EMPRESA}" loading="lazy">
+                    </a>
+                </div>
+                <div class="result-card-body">
+                    <h3 class="result-card-title"><a href="$link_url" $target>$title_text</a></h3>
+                    <p class="result-card-desc">$desc_text</p>
+                    
+                    <div class="result-card-footer">
+                        <img src="https://www.vetas.com/clientes/logos/$cli->{idcliente}.jpg" class="company-logo-small" alt="Logo" loading="lazy">
+                         <a href="$link_url" $target class="btn-view-more">
+                            Ver <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        );
+    }
+    print qq(</div></div>); # Close row and section
+}
+
+# --- NEWS SECTION ---
+if (scalar(@resultados_noticias) > 0) {
+    print qq(
+        <div class="result-section mb-5">
+            <div class="section-header-container">
+                <h2 class="section-title">$noticias</h2>
+            </div>
+            <div class="row">
+    );
+
+    foreach my $noticia (@resultados_noticias) {
+        $items_displayed++;
+        
+         # Photo logic
+        $stm3 = $dbh->prepare("select * from NOTAS_FOTOS where ID_NOTAS=$noticia->{ID} and SLIDER=0");
+        $stm3->execute();
+        my $fot="https://www.vetas.com/notas/fotos/$noticia->{'ID'}_1.jpg";
+        if (my $foto=$stm3->fetchrow_hashref) {
+           $fot="https://www.vetas.com/notas/fotos/$noticia->{ID}_$foto->{ID}_$foto->{FOTO}";
+        }
+        
+        print qq(
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="news-card">
+                <div class="news-img-wrapper">
+                     <a href="noticias.cgi?noticia=$noticia->{ID}&i=$idioma&s=1">
+                        <img src="$fot" class="news-img" alt="$noticia->{TITULO}" loading="lazy">
+                     </a>
+                </div>
+                <div class="news-card-body">
+                    <span class="news-date">$noticia->{FECHANOT}</span>
+                    <h4 class="news-title">
+                        <a href="noticias.cgi?noticia=$noticia->{ID}&i=$idioma&s=1">$noticia->{TITULO}</a>
+                    </h4>
+                    <p class="text-muted small mb-0">$noticia->{COPETE}</p>
+                </div>
+            </div>
+        </div>
+        );
+    }
+    print qq(</div></div>); # Close row and section
+}
+
+# --- MAGAZINES SECTION ---
+if (scalar(@resultados_revistas) > 0) {
+    print qq(
+        <div class="result-section mb-5">
+            <div class="section-header-container">
+                <h2 class="section-title">$revivetas</h2>
+            </div>
+            <div class="row">
+    );
+
+    foreach my $revista_item (@resultados_revistas) {
+        $items_displayed++;
+        
+        $stm2 = $dbh->prepare("select * from REVISTAS_CONFIG where REVISTA=$revista_item->{REVISTA}");
+        $stm2->execute();
+        my $revista_config=$stm2->fetchrow_hashref;
+        
+        my $fot="revista/$revista_item->{'REVISTA'}/$revista_item->{PAGINA}g.jpg";
+        my $link = "https://www.vetas.com/maga.cgi?revista=$revista_item->{REVISTA}&i=$idioma&paginas=$revista_config->{PAGINAS}&pag=$revista_item->{PAGINA}";
+
+        print qq(
+        <div class="col-md-6 col-lg-3 mb-4">
+             <div class="magazine-card">
+                <div class="magazine-cover-wrapper">
+                    <a href="$link">
+                        <img src="$fot" class="magazine-cover" alt="Revista" loading="lazy">
+                    </a>
+                </div>
+                <div class="magazine-info">
+                    <div class="magazine-number">$revivetas N&deg;$revista_item->{REVISTA}</div>
+                    <h5><a href="$link">$revista_item->{$sp}</a></h5>
+                </div>
+             </div>
+        </div>
+        );
+    }
+    print qq(</div></div>); # Close row and section
+}
 
 print "<!-- Items MOSTRADOS en pantalla: $items_displayed -->\n";
 
@@ -675,11 +810,10 @@ EOFHTML
 }
 
 print <<EOFHTML;
-</div>
-</div>
-</div>
+</div> <!-- Close results-wrapper -->
+</div> <!-- Close container -->
 </main>
- 
+
 EOFHTML
 
 open FOOTER;
