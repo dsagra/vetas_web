@@ -721,29 +721,56 @@ $view_product = "Ver produto" if ($idioma eq "br");
 
 my @carousel_products = ();
 
-# Fetch active clients
-my $sth_clients = $dbh->prepare("SELECT ID, EMPRESA FROM USUARIOS WHERE ACTIVO=1 OR ACTIVO_REVISTA!=0 OR ACTIVO_GUIA!=0");
-$sth_clients->execute();
+# 1. First Priority: Active clients with Featured (DESTACADO=1) photos
+my @featured_products = ();
+my %seen_clients = ();
 
-while (my $cli = $sth_clients->fetchrow_hashref) {
-    # Get 1 random photo for this client
-    # Note: RUBRO join is just for extra info if needed, mostly we need the image and description
-    my $sth_p = $dbh->prepare("SELECT F.ID, F.ARCHIVO, F.DESCRIPT, F.DESCRIPT_EN, F.DESCRIPT_BR FROM FOTOS AS F WHERE F.CLIENTE=? AND (F.FECHAVENCE='' or F.FECHAVENCE > now()) ORDER BY RAND() LIMIT 1");
-    $sth_p->execute($cli->{ID});
-    
-    if (my $prod = $sth_p->fetchrow_hashref) {
-        $prod->{EMPRESA_NAME} = $cli->{EMPRESA};
-        $prod->{CLIENTE_ID} = $cli->{ID};
-        push @carousel_products, $prod;
-    }
+# Fetch potential featured photos
+my $sth_feat = $dbh->prepare("
+    SELECT F.ID, F.ARCHIVO, F.DESCRIPT, F.DESCRIPT_EN, F.DESCRIPT_BR, U.EMPRESA, U.ID as CLIENTE_ID
+    FROM FOTOS F
+    JOIN USUARIOS U ON F.CLIENTE = U.ID
+    WHERE F.DESTACADO=1
+      AND (U.ACTIVO=1 OR U.ACTIVO_REVISTA!=0 OR U.ACTIVO_GUIA!=0)
+      AND (F.FECHAVENCE='' OR F.FECHAVENCE > NOW())
+    ORDER BY RAND()
+");
+$sth_feat->execute();
+
+while (my $prod = $sth_feat->fetchrow_hashref) {
+    next if $seen_clients{$prod->{CLIENTE_ID}};
+    $seen_clients{$prod->{CLIENTE_ID}} = 1;
+    $prod->{EMPRESA_NAME} = $prod->{EMPRESA};
+    push @featured_products, $prod;
 }
 
-# Shuffle the results
-for (my $i = @carousel_products; --$i; ) {
-    my $j = int rand($i+1);
-    next if $i == $j;
-    @carousel_products[$i,$j] = @carousel_products[$j,$i];
+# 2. Second Priority: Active clients WITHOUT featured photos (or at least, not yet shown)
+my @regular_products = ();
+
+# Fetch random pool of regular photos to fill in the rest
+# We prioritize photos that aren't featured, but technically we just want 'a photo' for the remaining clients
+my $sth_reg = $dbh->prepare("
+    SELECT F.ID, F.ARCHIVO, F.DESCRIPT, F.DESCRIPT_EN, F.DESCRIPT_BR, U.EMPRESA, U.ID as CLIENTE_ID
+    FROM FOTOS F
+    JOIN USUARIOS U ON F.CLIENTE = U.ID
+    WHERE (U.ACTIVO=1 OR U.ACTIVO_REVISTA!=0 OR U.ACTIVO_GUIA!=0)
+      AND (F.FECHAVENCE='' OR F.FECHAVENCE > NOW())
+    ORDER BY RAND()
+    LIMIT 300
+");
+$sth_reg->execute();
+
+while (my $prod = $sth_reg->fetchrow_hashref) {
+    next if $seen_clients{$prod->{CLIENTE_ID}};
+    $seen_clients{$prod->{CLIENTE_ID}} = 1;
+    $prod->{EMPRESA_NAME} = $prod->{EMPRESA};
+    push @regular_products, $prod;
 }
+
+# Combine lists: Featured first, then Regular
+# Note: We do NOT shuffle the final list because we want Featured to appear first
+@carousel_products = (@featured_products, @regular_products);
+
 
 if (@carousel_products > 0) {
     print qq(
