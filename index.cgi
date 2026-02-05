@@ -5,6 +5,7 @@ use Entrada;
 &Entrada;
 
 use Banners;
+use ProductosDestacados;
 
 use ConectarDB;
 $dbh=ConectarDB->connectWeb();
@@ -428,7 +429,7 @@ print <<EOFHTML;
     box-shadow: var(--shadow-lg);
   }
 
-  /* Carousel CSS */
+  /* Carousel CSS - ProductosDestacados Component */
   .scrolling-wrapper {
     -webkit-overflow-scrolling: touch;
     display: flex;
@@ -536,6 +537,40 @@ print <<EOFHTML;
   .product-card .btn-view:hover {
     background: var(--vetas-primary);
     color: white;
+  }
+
+  .company-logo-wrapper {
+    text-align: center;
+    margin: 0;
+    padding: 0.75rem 0;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .company-logo {
+    width: 100%;
+    max-height: 50px;
+    height: auto;
+    object-fit: contain;
+    padding: 0 1rem;
+    transition: var(--transition);
+  }
+
+  .company-logo:hover {
+    transform: scale(1.05);
+  }
+
+  .product-card .product-image {
+    transition: var(--transition);
+  }
+
+  .product-card:hover .product-image {
+    transform: scale(1.05);
   }
 
 </style>
@@ -710,118 +745,8 @@ print <<EOFHTML;
     </div>
 EOFHTML
 
-# FEATURED PRODUCTS CAROUSEL START
-my $featured_title = "Productos Destacados";
-$featured_title = "Featured Products" if ($idioma eq "en");
-$featured_title = "Produtos em Destaque" if ($idioma eq "br");
-
-my $view_product = "Ver producto";
-$view_product = "View product" if ($idioma eq "en");
-$view_product = "Ver produto" if ($idioma eq "br");
-
-my @carousel_products = ();
-
-# 1. First Priority: Active clients with Featured (DESTACADO=1) photos
-my @featured_products = ();
-my %seen_clients = ();
-
-# Fetch potential featured photos
-my $sth_feat = $dbh->prepare("
-    SELECT F.ID, F.ARCHIVO, F.DESCRIPT, F.DESCRIPT_EN, F.DESCRIPT_BR, U.EMPRESA, U.ID as CLIENTE_ID
-    FROM FOTOS F
-    JOIN USUARIOS U ON F.CLIENTE = U.ID
-    WHERE F.DESTACADO=1
-      AND (U.ACTIVO=1 OR U.ACTIVO_REVISTA!=0 OR U.ACTIVO_GUIA!=0)
-      AND (F.FECHAVENCE='' OR F.FECHAVENCE > NOW())
-    ORDER BY RAND()
-");
-$sth_feat->execute();
-
-while (my $prod = $sth_feat->fetchrow_hashref) {
-    next if $seen_clients{$prod->{CLIENTE_ID}};
-    $seen_clients{$prod->{CLIENTE_ID}} = 1;
-    $prod->{EMPRESA_NAME} = $prod->{EMPRESA};
-    push @featured_products, $prod;
-}
-
-# 2. Second Priority: Active clients WITHOUT featured photos (or at least, not yet shown)
-my @regular_products = ();
-
-# Fetch random pool of regular photos to fill in the rest
-# We prioritize photos that aren't featured, but technically we just want 'a photo' for the remaining clients
-my $sth_reg = $dbh->prepare("
-    SELECT F.ID, F.ARCHIVO, F.DESCRIPT, F.DESCRIPT_EN, F.DESCRIPT_BR, U.EMPRESA, U.ID as CLIENTE_ID
-    FROM FOTOS F
-    JOIN USUARIOS U ON F.CLIENTE = U.ID
-    WHERE (U.ACTIVO=1 OR U.ACTIVO_REVISTA!=0 OR U.ACTIVO_GUIA!=0)
-      AND (F.FECHAVENCE='' OR F.FECHAVENCE > NOW())
-    ORDER BY RAND()
-    LIMIT 300
-");
-$sth_reg->execute();
-
-while (my $prod = $sth_reg->fetchrow_hashref) {
-    next if $seen_clients{$prod->{CLIENTE_ID}};
-    $seen_clients{$prod->{CLIENTE_ID}} = 1;
-    $prod->{EMPRESA_NAME} = $prod->{EMPRESA};
-    push @regular_products, $prod;
-}
-
-# Combine lists: Featured first, then Regular
-# Note: We do NOT shuffle the final list because we want Featured to appear first
-@carousel_products = (@featured_products, @regular_products);
-
-
-if (@carousel_products > 0) {
-    print qq(
-    <div class="container container-spacing">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="section-title">$featured_title</h3>
-            </div>
-        </div>
-        <div class="scrolling-wrapper">
-    );
-
-    foreach my $prod (@carousel_products) {
-        my $foto = $prod->{ARCHIVO};
-        $foto = "$prod->{ID}.jpg" if ($foto eq "");
-        
-        my $img_url = "https://www.vetas.com/clientes/fotos/$foto";
-        
-        my $p_title = $prod->{DESCRIPT};
-        if ($idioma eq "en" && $prod->{DESCRIPT_EN}) { $p_title = $prod->{DESCRIPT_EN}; }
-        if ($idioma eq "br" && $prod->{DESCRIPT_BR}) { $p_title = $prod->{DESCRIPT_BR}; }
-        $p_title = "Producto" if ($p_title eq "");
-        
-        # Escape quotes for HTML
-        $p_title =~ s/"/&quot;/g;
-        my $empresa_safe = $prod->{EMPRESA_NAME};
-        $empresa_safe =~ s/"/&quot;/g;
-        
-        # Link logic
-        my $prod_link = "empresa.cgi?cliente=$prod->{CLIENTE_ID}&i=$idioma";
-
-        print qq(
-            <div class="product-card">
-                 <a href="$prod_link">
-                    <img src="$img_url" alt="$p_title" loading="lazy">
-                 </a>
-                <div class="card-body">
-                    <div class="company-name" title="$empresa_safe">$prod->{EMPRESA_NAME}</div>
-                    <h5 title="$p_title">$p_title</h5>
-                    <a href="$prod_link" class="btn-view">$view_product</a>
-                </div>
-            </div>
-        );
-    }
-
-    print qq(
-        </div>
-    </div>
-    );
-}
-# FEATURED PRODUCTS CAROUSEL END
+# FEATURED PRODUCTS CAROUSEL
+ProductosDestacados::mostrar_carousel($dbh, $idioma);
 
 print <<EOFHTML;
 
