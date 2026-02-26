@@ -237,7 +237,8 @@ print <<EOFHTML;
 
   .modern-card .card-img-top {
     border-radius: 0;
-    height: 200px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     transition: var(--transition);
   }
