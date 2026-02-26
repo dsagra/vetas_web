@@ -38,9 +38,13 @@ $pagina=0;
 
 $rev=$formulario{revista};
 $pagina=$formulario{pag} if ($formulario{pag}!=0);
-$paginastotal=$formulario{paginas};
+$paginastotal=$revista->{PAGINAS};
 
 if ($pagina == "0")
+  {
+  $pagina=1;
+  }
+if ($pagina > $paginastotal && $paginastotal > 0)
   {
   $pagina=1;
   }
